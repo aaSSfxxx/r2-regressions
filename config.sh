@@ -1,5 +1,5 @@
 # CONFIGURATION FILE FOR TEST SUITE #
-r2=../../binr/radare2/radare2
+r2=`which r2`
 if [ -z "${DEBUG}" ]; then
 :
 #DEBUG=1
