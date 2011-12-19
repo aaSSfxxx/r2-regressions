@@ -2,6 +2,7 @@ T=	asm	\
 	grep 	\
 	math 	\
 	redo 	\
+	seek	\
 	write	\
 	undo
 

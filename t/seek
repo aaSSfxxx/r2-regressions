@@ -1,0 +1,16 @@
+# Tests seeking in hex, decimal and octal
+DEBUG=no
+FILE=malloc://1024
+ARGS=""
+CMDS="
+s 0x666
+s
+s 15
+s
+s 034
+s
+"
+EXPECT="0x666
+0xf
+0x1c"
+. ../tests.sh
