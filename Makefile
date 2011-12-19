@@ -1,9 +1,11 @@
-T=	asm	\
-	grep 	\
-	math 	\
-	redo 	\
-	seek	\
-	write	\
+T=	asm		\
+	filesize	\
+	grep 		\
+	math 		\
+	redo 		\
+	seek		\
+	write		\
+	filesize	\
 	undo
 
 all: ${T}
