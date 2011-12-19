@@ -8,10 +8,9 @@ Originally based on work by and now in collaboration with pancake.
 Directory Hierarchy
 -------------------
 
-t/		Test scripts.
-s/		Sample binaries.
-test.sh		Test driver script sourced by tests.
-		^------- Do not run this manually.
+ * t/		Test scripts.
+ * s/		Sample binaries.
+ * test.sh	Test driver script sourced by tests (not to be run manually).
 
 Requirements
 ------------
