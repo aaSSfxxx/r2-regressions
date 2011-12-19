@@ -3,11 +3,12 @@ T=	asm		\
 	grep 		\
 	math 		\
 	redo 		\
+	search_ascii	\
 	seek		\
 	write		\
-	filesize	\
 	undo
 #	noargs
+#	search_ascii
 
 all: ${T}
 
