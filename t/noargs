@@ -1,0 +1,7 @@
+# Some commands expect arguments and should not crash if none given
+DEBUG=no
+FILE=malloc://1024
+ARGS=""
+CMDS='?v'
+EXPECT=""
+. ../tests.sh

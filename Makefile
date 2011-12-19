@@ -7,6 +7,7 @@ T=	asm		\
 	write		\
 	filesize	\
 	undo
+#	noargs
 
 all: ${T}
 
