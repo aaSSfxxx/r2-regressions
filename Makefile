@@ -3,7 +3,6 @@ T=	asm		\
 	grep 		\
 	math 		\
 	redo 		\
-	search_ascii	\
 	seek		\
 	write		\
 	undo
