@@ -1,8 +1,8 @@
 # CONFIGURATION FILE FOR TEST SUITE #
 r2=`which r2`
-if [ -z "${DEBUG}" ]; then
+#if [ -z "${DEBUG}" ]; then
 #:
 #DEBUG=1
 #DEBUG=valgrind
-fi
+#fi
 export r2 DEBUG
