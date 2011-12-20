@@ -1,0 +1,10 @@
+DEBUG=no
+FILE=malloc://8
+ARGS=""
+CMDS='
+wx 0001020304050607
+woa 1 @0:8
+p8 8
+'
+EXPECT="0102030405060708"
+. ../tests.sh

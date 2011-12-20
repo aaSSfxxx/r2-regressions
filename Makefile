@@ -8,6 +8,7 @@ T=	asm		\
 	undo
 #	noargs
 #	search_ascii
+#	woa
 
 all: ${T}
 
