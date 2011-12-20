@@ -22,7 +22,8 @@ Usage
 -----
 
  * Run 'make' in the top level directory to run *all* tests.
- * To run individual tests, cd into 't/' and execute the desired script.
+ * To run individual tests, type 'make <testname>'.
+ * To run tests which we know are failing (and should not), run 'make fail'.
 
 Reporting Radare2 Bugs
 ----------------------
