@@ -6,10 +6,14 @@ rad=`mktemp rad.XXXXXX`
 exp=`mktemp exp.XXXXXX`
 
 run_test() {
-	printf "Running ${NAME} ... \r"
+	cmd="${DBG} ${r2} -e scr.color=0 -n -q -i ${rad} ${ARGS} ${FILE} ${PIP}"
+	echo "TEST: `basename ${NAME}`"
+	echo "Running: ${cmd}"
+
 	echo "${CMDS}" > ${rad}
 	echo "${EXPECT}" > ${exp}
-	eval ${DBG} ${r2} -e scr.color=0 -n -q -i ${rad} ${ARGS} ${FILE} ${PIP}
+
+	eval ${cmd}
 	if [ ! $? = 0 ]; then
 		printf "\x1b[31m"
 		echo "Running ${NAME} ... FAIL (radare2 crashed?)"

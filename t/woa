@@ -1,7 +1,7 @@
 # test batch adding to bytes works
 DEBUG=no
 FILE=malloc://8
-ARGS=""
+ARGS="-w"
 CMDS='
 wx 0001020304050607
 woa 1 @0:8
