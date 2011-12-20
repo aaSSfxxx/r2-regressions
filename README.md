@@ -15,7 +15,7 @@ Directory Hierarchy
 Requirements
 ------------
 
- * Radare2 installed and in $PATH (obviously).
+ * Radare2 installed (and in $PATH or set the R2 environment).
  * bmake or gmake.
 
 Usage
