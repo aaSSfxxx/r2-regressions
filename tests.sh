@@ -1,34 +1,37 @@
 # do not execute #
 . ../config.sh
 
-out=$(mktemp out.XXXXXX)
-rad=$(mktemp rad.XXXXXX)
+out=`mktemp out.XXXXXX`
+rad=`mktemp rad.XXXXXX`
+exp=`mktemp exp.XXXXXX`
+
 run_test() {
 	printf "Running ${NAME} ... \r"
-	echo "${CMDS}" > $rad
-	eval ${DBG} $r2 -e scr.color=0 -n -q -i $rad ${ARGS} ${FILE} ${PIP}
+	echo "${CMDS}" > ${rad}
+	echo "${EXPECT}" > ${exp}
+	eval ${DBG} ${r2} -e scr.color=0 -n -q -i ${rad} ${ARGS} ${FILE} ${PIP}
 	if [ ! $? = 0 ]; then
-		printf "ERROR+"
-	fi
-	if [ "$(cat $out)" = "${EXPECT}" ]; then
-		echo "Running ${NAME} ... SUCCESS"
-	else
-		echo "Running ${NAME} ... FAIL"
-		printf "\x1b[32m"
-		echo "--"
-		cat $out
-		echo "--"
-		echo "${EXPECT}"
-		echo "--"
+		printf "\x1b[31m"
+		echo "Running ${NAME} ... FAIL (radare2 crashed?)"
 		printf "\x1b[0m"
+	elif [ "`cat $out`" = "${EXPECT}" ]; then
+		printf "\x1b[32m"
+		echo "Running ${NAME} ... SUCCESS"
+		printf "\x1b[0m"
+	else
+		printf "\x1b[31m"
+		echo "Running ${NAME} ... FAIL (unexpected outcome)"
+		printf "\x1b[0m"
+		diff -u ${exp} ${out}
 	fi
-	rm -f $out $rad
+	rm -f ${out} ${rad} ${exp}
+	echo "-------------------------------------------------------------------"
 }
 
-PIP=">$out"
+PIP=">${out}"
 case "${DEBUG}" in
 0|no)
-	DBG="cat $rad |"
+	DBG="cat ${rad} |"
 	DBG="echo q |"
 	;;
 1|yes|gdb)
