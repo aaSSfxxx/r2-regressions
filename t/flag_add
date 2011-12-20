@@ -1,5 +1,4 @@
 # Test adding of flags
-DEBUG=no
 FILE=malloc://1024
 ARGS=""
 CMDS='

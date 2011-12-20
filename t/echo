@@ -1,6 +1,5 @@
 # test echo works
 NAME=echo
-DEBUG=no
 FILE=malloc://1024
 ARGS=""
 CMDS="

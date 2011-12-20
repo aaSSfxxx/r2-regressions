@@ -1,5 +1,4 @@
 # 'f' command with no args should not crash
-DEBUG=no
 FILE=malloc://1024
 ARGS=""
 CMDS='f

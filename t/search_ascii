@@ -1,7 +1,6 @@
 # Tests ASCII searching
 # For some reason searches entire address range rather than just
 # 1024 bytes XXX
-DEBUG=no
 FILE=malloc://1024
 ARGS=""
 CMDS='w test
