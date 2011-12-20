@@ -1,3 +1,4 @@
+# test batch adding to bytes works
 DEBUG=no
 FILE=malloc://8
 ARGS=""

@@ -1,5 +1,5 @@
 # Tests ASCII searching
-# For soem reason searches entire address range rather than just
+# For some reason searches entire address range rather than just
 # 1024 bytes XXX
 DEBUG=no
 FILE=malloc://1024
