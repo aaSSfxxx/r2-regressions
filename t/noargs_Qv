@@ -3,5 +3,5 @@ FILE=malloc://1024
 ARGS=""
 CMDS='?v
 '
-EXPECT="unknown XXX"
+EXPECT="0x0"
 . ../tests.sh
