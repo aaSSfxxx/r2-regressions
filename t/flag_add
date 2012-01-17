@@ -9,7 +9,7 @@ f kryten 32 666
 f+skutter 1 @ 12
 f
 '
-EXPECT="0x0000000c 1  skutter
+EXPECT="0x0000000c 1 skutter
 0x0000029a 32 kryten
 0x0000029a 32 lister
 0x00000000 12 rimmer
