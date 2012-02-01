@@ -1,18 +1,18 @@
 T=	asm		\
 	filesize	\
+	flag_add	\
 	grep 		\
 	math 		\
+	noargs_Qv	\
 	noargs_f	\
 	redo 		\
 	seek		\
-	write		\
-	undo 
+	undo		\
+	woa		\
+	write		
 
 # Failing tests, pending fixes upstream in r2 hg
-FT=	flag_add	\
-	noargs_Qv	\
-	search_ascii	\
-	woa
+FT=	search_ascii
 
 
 all: ${T}
