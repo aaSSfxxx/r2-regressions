@@ -8,9 +8,7 @@ w test@333
 w test@666
 / test @0:1024
 '
-EXPECT="Searching 4 bytes from 0x00000000 to 0x00000400: 74 65 73 74
-hits: 3  hit0_0 .. hit0_2
-hit0_0
+EXPECT="hit0_0
 hit0_1
 hit0_2"
 . ../tests.sh

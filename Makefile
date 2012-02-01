@@ -6,14 +6,14 @@ T=	asm		\
 	noargs_Qv	\
 	noargs_f	\
 	redo 		\
+	search_ascii	\
 	seek		\
 	undo		\
 	woa		\
-	write		
+	write
 
-# Failing tests, pending fixes upstream in r2 hg
-FT=	search_ascii
-
+# failing tests
+FT=
 
 all: ${T}
 fail: ${FT}
