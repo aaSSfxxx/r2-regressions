@@ -1,7 +1,15 @@
 #!/do/not/execute
 
 run_test() {
-	r2args="${r2} -e scr.color=0 -n -q -i ${rad} ${ARGS} ${FILE} > ${out} 2>&1"
+	r2args="${r2} -e scr.color=0 -n -q -i ${rad} ${ARGS} ${FILE}"
+
+	# ${FILTER} can be used to filter out random results to create stable
+	# tests.
+	if [ -n "${FILTER}" ]; then
+		r2args="${r2args} 2>&1 | ${FILTER} > ${out}"
+	else
+		r2args="${r2args} > ${out} 2>&1"
+	fi
 
 	if [ -n "${VALGRIND}" ]; then
 		cmd="valgrind --error-exitcode=47 --log-file=${val} ${r2args}"
