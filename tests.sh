@@ -1,7 +1,7 @@
 #!/do/not/execute
 
 run_test() {
-	r2args="${r2} -e scr.color=0 -n -q -i ${rad} ${ARGS} ${FILE}"
+	r2args="${r2} -e scr.color=0 -N -q -i ${rad} ${ARGS} ${FILE}"
 
 	# ${FILTER} can be used to filter out random results to create stable
 	# tests.
