@@ -11,10 +11,11 @@ T=	asm		\
 	seek		\
 	undo		\
 	woa		\
-	write
+	write		\
+	write_cache
 
 # failing tests
-FT=	write_cache
+FT=
 
 all: ${T}
 fail: ${FT}
