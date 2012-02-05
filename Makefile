@@ -1,4 +1,5 @@
 T=	asm		\
+	empty		\
 	filesize	\
 	flag_add	\
 	grep 		\
@@ -25,6 +26,6 @@ ${FT}:
 	@cd t ; ./$@
 
 clean:
-	rm -f t/out.* t/val.* t/rad.* t/exp.* t/radare2.core
+	rm -f t/out.* t/val.* t/rad.* t/exp.* t/radare2.core t/*.tmp
 
 .PHONY: all ${T} clean
