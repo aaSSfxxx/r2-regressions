@@ -18,8 +18,16 @@ run_test() {
 	fi
 	cmd="echo q | ${cmd}"
 
-	echo "Next Test: `basename $0`"
+	file=`basename $0`
+	if [ -z "${NAME}" ]; then
+		NAME=$file
+	else
+		NAME="$file: $NAME"
+	fi
+
+	echo "Next Test: ${NAME}"
 	echo "Running: ${cmd}"
+	NAME=
 
 	# put expected outcome and program to run in files
 	echo "${CMDS}" > ${rad}
