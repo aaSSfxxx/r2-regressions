@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Tests ASCII searching
 # For some reason searches entire address range rather than just
 # 1024 bytes XXX

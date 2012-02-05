@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # test batch adding to bytes works
 FILE=malloc://8
 ARGS="-w"

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # test writing of bytes works
 FILE=malloc://1024
 ARGS=""
