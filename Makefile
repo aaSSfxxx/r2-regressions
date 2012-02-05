@@ -13,7 +13,7 @@ T=	asm		\
 	write
 
 # failing tests
-FT=
+FT=	write_cache
 
 all: ${T}
 fail: ${FT}
