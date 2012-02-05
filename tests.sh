@@ -2,7 +2,7 @@
 
 run_test() {
 
-	cmd="echo q | ${r2} -e scr.color=0 -n -q -i ${rad} ${ARGS} ${FILE} > ${out}"
+	cmd="echo q | ${r2} -e scr.color=0 -n -q -i ${rad} ${ARGS} ${FILE} > ${out} 2>&1"
 
 	echo "Next Test: `basename ${NAME}`"
 	echo "Running: ${cmd}"
