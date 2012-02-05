@@ -2,7 +2,7 @@
 
 . ../tests.sh
 
-# test batch adding to bytes works
+# test batch adding to bytes works (bug report #59)
 FILE=malloc://8
 ARGS="-w"
 CMDS='
