@@ -25,6 +25,6 @@ ${FT}:
 	@cd t ; ./$@
 
 clean:
-	rm -f t/out.* t/rad.* t/exp.* t/radare2.core
+	rm -f t/out.* t/val.* t/rad.* t/exp.* t/radare2.core
 
 .PHONY: all ${T} clean

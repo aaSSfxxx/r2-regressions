@@ -1,8 +1,14 @@
 #!/do/not/execute
 
 run_test() {
+	r2args="${r2} -e scr.color=0 -n -q -i ${rad} ${ARGS} ${FILE} > ${out} 2>&1"
 
-	cmd="echo q | ${r2} -e scr.color=0 -n -q -i ${rad} ${ARGS} ${FILE} > ${out} 2>&1"
+	if [ -n "${VALGRIND}" ]; then
+		cmd="valgrind --error-exitcode=47 --log-file=${val} ${r2args}"
+	else
+		cmd="${r2args}"
+	fi
+	cmd="echo q | ${cmd}"
 
 	echo "Next Test: `basename ${NAME}`"
 	echo "Running: ${cmd}"
@@ -12,7 +18,13 @@ run_test() {
 	echo "${EXPECT}" > ${exp}
 
 	eval ${cmd}
-	if [ ! $? = 0 ]; then
+	code=$?
+	if [ ${code} -eq 47 ]; then
+		printf "\x1b[31m"
+		echo "FAIL (Valgrind error)"
+		printf "\x1b[0m"
+		cat ${val}
+	elif [ ! ${code} -eq 0 ]; then
 		printf "\x1b[31m"
 		echo "FAIL (Radare2 crashed?)"
 		printf "\x1b[0m"
@@ -26,7 +38,7 @@ run_test() {
 		printf "\x1b[0m"
 		diff -u ${exp} ${out}
 	fi
-	rm -f ${out} ${rad} ${exp}
+	rm -f ${out} ${val} ${rad} ${exp}
 	echo "-------------------------------------------------------------------"
 }
 
@@ -36,6 +48,7 @@ if [ -z "${R2}" ]; then
 fi
 
 out=`mktemp out.XXXXXX`
+val=`mktemp val.XXXXXX`
 rad=`mktemp rad.XXXXXX`
 exp=`mktemp exp.XXXXXX`
 

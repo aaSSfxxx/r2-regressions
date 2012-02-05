@@ -25,6 +25,13 @@ Usage
  * To run individual tests, type 'make <testname>'.
  * To run tests which we know are failing (and should not), run 'make fail'.
 
+Options
+-------
+
+The following options can be passed to make or the individual tests.
+
+ * To run tests with valgrind, use 'VALGRIND=1'.
+
 Reporting Radare2 Bugs
 ----------------------
 
