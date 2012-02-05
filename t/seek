@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ../tests.sh
+
 # Tests seeking in hex, decimal and octal
 FILE=malloc://1024
 ARGS=""
@@ -14,4 +16,4 @@ s
 EXPECT="0x666
 0xf
 0x1c"
-. ../tests.sh
+run_test

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ../tests.sh
+
 # Test adding of flags
 FILE=malloc://1024
 ARGS=""
@@ -16,4 +18,4 @@ EXPECT="0x0000000c 1 skutter
 0x0000029a 32 lister
 0x00000000 12 rimmer
 0x00000000 64 cat"
-. ../tests.sh
+run_test

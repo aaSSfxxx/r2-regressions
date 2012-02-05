@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ../tests.sh
+
 # test writing of bytes works
 FILE=malloc://1024
 ARGS=""
@@ -8,4 +10,4 @@ wx 010203
 p8 3
 "
 EXPECT="010203"
-. ../tests.sh
+run_test

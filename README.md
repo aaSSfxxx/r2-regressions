@@ -31,6 +31,7 @@ Options
 The following options can be passed to make or the individual tests.
 
  * To run tests with valgrind, use 'VALGRIND=1'.
+ * To continue running tests if one failed, use 'NOEXIT=1'.
 
 Reporting Radare2 Bugs
 ----------------------

@@ -1,8 +1,10 @@
 #!/bin/sh
 
+. ../tests.sh
+
 # Tests file size reporting
 FILE=malloc://1024
 ARGS=""
 CMDS='?v $s'
 EXPECT="0x400"
-. ../tests.sh
+run_test

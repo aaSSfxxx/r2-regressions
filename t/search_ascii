@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ../tests.sh
+
 # Tests ASCII searching
 # For some reason searches entire address range rather than just
 # 1024 bytes XXX
@@ -15,4 +17,4 @@ hits: 3  hit0_0 .. hit0_2
 hit0_0
 hit0_1
 hit0_2"
-. ../tests.sh
+run_test

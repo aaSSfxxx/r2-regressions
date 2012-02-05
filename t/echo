@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. ../tests.sh
+
 # test echo works
 NAME=echo
 FILE=malloc://1024
@@ -11,4 +13,4 @@ q!
 "
 EXPECT="fuck
 yeah"
-. ../tests.sh
+run_test

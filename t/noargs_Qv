@@ -1,9 +1,11 @@
 #!/bin/sh
 
+. ../tests.sh
+
 # Some commands expect arguments and should not crash if none given
 FILE=malloc://1024
 ARGS=""
 CMDS='?v
 '
 EXPECT="0x0"
-. ../tests.sh
+run_test

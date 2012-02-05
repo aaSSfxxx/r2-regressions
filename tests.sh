@@ -18,7 +18,7 @@ run_test() {
 	fi
 	cmd="echo q | ${cmd}"
 
-	echo "Next Test: `basename ${NAME}`"
+	echo "Next Test: `basename $0`"
 	echo "Running: ${cmd}"
 
 	# put expected outcome and program to run in files
@@ -32,10 +32,12 @@ run_test() {
 		echo "FAIL (Valgrind error)"
 		printf "\033[0m"
 		cat ${val}
+		[ -z "${NOEXIT}" ] && exit ${code}
 	elif [ ! ${code} -eq 0 ]; then
 		printf "\033[31m"
 		echo "FAIL (Radare2 crashed?)"
 		printf "\033[0m"
+		[ -z "${NOEXIT}" ] && exit ${code}
 	elif [ "`cat $out`" = "${EXPECT}" ]; then
 		printf "\033[32m"
 		echo "SUCCESS"
@@ -45,6 +47,7 @@ run_test() {
 		echo "FAIL (Unexpected outcome)"
 		printf "\033[0m"
 		diff -u ${exp} ${out}
+		[ -z "${NOEXIT}" ] && exit 1
 	fi
 	rm -f ${out} ${val} ${rad} ${exp}
 	echo "-------------------------------------------------------------------"
@@ -59,7 +62,3 @@ out=`mktemp out.XXXXXX`
 val=`mktemp val.XXXXXX`
 rad=`mktemp rad.XXXXXX`
 exp=`mktemp exp.XXXXXX`
-
-NAME=$0
-
-run_test
