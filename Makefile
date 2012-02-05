@@ -15,7 +15,7 @@ T=	asm		\
 	write_cache
 
 # failing tests
-FT=
+FT=	help_slash-cQ
 
 all: ${T}
 fail: ${FT}

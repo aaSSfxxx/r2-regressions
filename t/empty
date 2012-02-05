@@ -1,0 +1,31 @@
+#!/bin/sh
+
+. ../tests.sh
+
+touch empty.tmp
+
+# Tests seeking in hex, decimal and octal
+FILE=empty.tmp
+ARGS=""
+CMDS="
+s 0x666
+s
+s 15
+s
+s 034
+s
+s 0
+s+2
+s -1
+s
+s+0x4
+s
+"
+EXPECT="0x666
+0xf
+0x1c
+0x1
+0x5"
+run_test
+
+rm empty.tmp
