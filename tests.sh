@@ -28,22 +28,22 @@ run_test() {
 	eval ${cmd}
 	code=$?
 	if [ ${code} -eq 47 ]; then
-		printf "\x1b[31m"
+		printf "\033[31m"
 		echo "FAIL (Valgrind error)"
-		printf "\x1b[0m"
+		printf "\033[0m"
 		cat ${val}
 	elif [ ! ${code} -eq 0 ]; then
-		printf "\x1b[31m"
+		printf "\033[31m"
 		echo "FAIL (Radare2 crashed?)"
-		printf "\x1b[0m"
+		printf "\033[0m"
 	elif [ "`cat $out`" = "${EXPECT}" ]; then
-		printf "\x1b[32m"
+		printf "\033[32m"
 		echo "SUCCESS"
-		printf "\x1b[0m"
+		printf "\033[0m"
 	else
-		printf "\x1b[31m"
+		printf "\033[31m"
 		echo "FAIL (Unexpected outcome)"
-		printf "\x1b[0m"
+		printf "\033[0m"
 		diff -u ${exp} ${out}
 	fi
 	rm -f ${out} ${val} ${rad} ${exp}
