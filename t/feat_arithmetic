@@ -2,11 +2,12 @@
 
 . ../tests.sh
 
-# test arithmetic
+## Arithmetic expressions
+
 FILE=malloc://1024
-ARGS=""
+ARGS=
 CMDS='
 ?v 0x10+0x30
 '
-EXPECT="0x40"
+EXPECT='0x40'
 run_test

@@ -69,3 +69,9 @@ The following functions are available:
 
  * run_test(): Run the test with the variables. Can be called multiple times
                in one test file.
+
+The test files should be named according to the following convention:
+
+ * cmd_*: For each command (see libr/core/cmd.c).
+ * feat_*: For features not tied to a single command, like grep or
+           redirection.

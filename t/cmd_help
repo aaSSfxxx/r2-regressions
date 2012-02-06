@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. ../tests.sh
+
+## "?v" - hex value of math expr
+
+# No crash if no arguments are given.
+FILE=malloc://1024
+ARGS=
+CMDS='?v'
+EXPECT='0x0'
+run_test
+
+# File size reporting.
+FILE=malloc://1024
+ARGS=
+CMDS='?v $s'
+EXPECT='0x400'
+run_test

@@ -2,12 +2,14 @@
 
 . ../tests.sh
 
-# Test writing of bytes
+## grep
+
+# Basic grep.
 FILE=malloc://1024
-ARGS=""
+ARGS=
 CMDS='
 wx 10203040
 px~:1[1]
 '
-EXPECT="1020"
+EXPECT='1020'
 run_test
