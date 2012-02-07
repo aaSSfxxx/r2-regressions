@@ -23,7 +23,7 @@ R2_SOURCED=1
 # Run all tests.
 cd t || die "t/ doesn't exist"
 for file in *; do
-    NAME=$(echo "${file}" | sed 's/.sh$//')
+    TEST_NAME=$(echo "${file}" | sed 's/.sh$//')
     . "./${file}"
 done
 

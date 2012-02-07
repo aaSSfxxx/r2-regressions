@@ -7,13 +7,14 @@ run_test() {
 
     # Set by run_tests.sh if all tests are run - otherwise get it from test
     # name.
-    if [ -z "${NAME}" ]; then
-        NAME=$(basename "$0" | sed 's/\.sh$//')
+    if [ -z "${TEST_NAME}" ]; then
+        TEST_NAME=$(basename "$0" | sed 's/\.sh$//')
     fi
 
-    printf "${NAME}"
-    [ -n "${VALGRIND}" ] && printf " (valgrind)"
-    printf " .. "
+    NAME_TMP="${TEST_NAME}"
+    [ -n "${NAME}" ]     && NAME_TMP="${NAME_TMP}: ${NAME}"
+    [ -n "${VALGRIND}" ] && NAME_TMP="${NAME_TMP} (valgrind)"
+    printf "%-40s" "${NAME_TMP}"
 
     # Check required variables.
     if [ -z "${FILE}" ]; then
@@ -34,10 +35,10 @@ run_test() {
     fi
 
     mkdir -p ../tmp
-    TMP_RAD=$(mktemp "../tmp/${NAME}-rad.XXXXXX")
-    TMP_OUT=$(mktemp "../tmp/${NAME}-out.XXXXXX")
-    TMP_VAL=$(mktemp "../tmp/${NAME}-val.XXXXXX")
-    TMP_EXP=$(mktemp "../tmp/${NAME}-exp.XXXXXX")
+    TMP_RAD=$(mktemp "../tmp/${TEST_NAME}-rad.XXXXXX")
+    TMP_OUT=$(mktemp "../tmp/${TEST_NAME}-out.XXXXXX")
+    TMP_VAL=$(mktemp "../tmp/${TEST_NAME}-val.XXXXXX")
+    TMP_EXP=$(mktemp "../tmp/${TEST_NAME}-exp.XXXXXX")
 
     # No colors and no user configs.
     R2ARGS="${R2} -e scr.color=0 -N -q -i ${TMP_RAD} ${ARGS} ${FILE}"
@@ -100,6 +101,7 @@ run_test() {
 }
 
 test_reset() {
+    NAME=
     FILE=
     ARGS=
     CMDS=

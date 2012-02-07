@@ -6,6 +6,7 @@
 
 # Seeking in hex, decimal and octal in an empty file.
 touch empty.tmp
+NAME='s'
 FILE=empty.tmp
 ARGS=
 CMDS='
@@ -31,6 +32,7 @@ run_test
 rm -f empty.tmp
 
 # Seeking in hex, decimal and octal.
+NAME='s'
 FILE=malloc://1024
 ARGS=
 CMDS='
@@ -57,6 +59,7 @@ run_test
 
 ## "s+"/"s-" - seek undo/redo
 
+NAME='s+/s-'
 FILE=malloc://1024
 ARGS=
 CMDS='

@@ -5,6 +5,7 @@
 ## "f" - set flags
 
 # No args should not crash (bug report #56).
+NAME='f'
 FILE=malloc://1024
 ARGS=
 CMDS='f'
@@ -12,6 +13,7 @@ EXPECT=
 run_test
 
 # Add flags.
+NAME='f'
 FILE=malloc://1024
 ARGS=
 CMDS='
