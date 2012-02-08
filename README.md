@@ -76,3 +76,8 @@ The test files should be named according to the following convention:
  * cmd_*: For each command (see libr/core/cmd.c).
  * feat_*: For features not tied to a single command, like grep or
            redirection.
+
+License
+-------
+
+The test files are licensed under GPL 3 (or later).

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
+
 . ../tests.sh
 
 ## cache
