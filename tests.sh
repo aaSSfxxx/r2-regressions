@@ -59,15 +59,8 @@ run_test() {
     TMP_EXP=$(mktemp "../tmp/${TEST_NAME}-exp.XXXXXX")
 
     # No colors and no user configs.
-    R2ARGS="${R2} -e scr.color=0 -N -q -i ${TMP_RAD} ${ARGS} ${FILE}"
+    R2ARGS="${R2} -e scr.color=0 -N -q -i ${TMP_RAD} ${ARGS} ${FILE} > ${TMP_OUT} 2>&1"
     R2CMD=
-    # ${FILTER} can be used to filter out random results to create stable
-    # tests.
-    if [ -n "${FILTER}" ]; then
-        R2ARGS="${R2ARGS} 2>&1 | ${FILTER} > ${TMP_OUT}"
-    else
-        R2ARGS="${R2ARGS} > ${TMP_OUT} 2>&1"
-    fi
     # Valgrind to detect memory corruption.
     if [ -n "${VALGRIND}" ]; then
         R2CMD="valgrind --error-exitcode=47 --log-file=${TMP_VAL}"
@@ -85,6 +78,13 @@ run_test() {
 
     if [ -n "${R2_SOURCED}" ]; then
         TESTS_RUN=$(( TESTS_RUN + 1 ))
+    fi
+
+    # ${FILTER} can be used to filter out random results to create stable
+    # tests.
+    if [ -n "${FILTER}" ]; then
+        eval "cat ${TMP_OUT} | ${FILTER} > ${TMP_OUT}.filter"
+        mv "${TMP_OUT}.filter" "${TMP_OUT}"
     fi
 
     if [ ${CODE} -eq 47 ]; then
