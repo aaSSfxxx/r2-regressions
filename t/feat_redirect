@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
+
+. ../tests.sh
+
+# ">" - redirection
+
+# Test basic redirection.
+FILE=malloc://1024
+ARGS=
+CMDS='
+# Normal redirect.
+pb 10 > dump
+!wc -c dump
+# Redirect with output bigger than CONS_MAX_USER.
+pb 12800 > dump
+!wc -c dump
+!rm -f dump
+'
+EXPECT="dump created
+81 dump
+dump created
+102401 dump"
+run_test
