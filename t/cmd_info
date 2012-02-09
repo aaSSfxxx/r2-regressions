@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
+
+. ../tests.sh
+
+## "i" - get info about opened file
+
+# malloc://1025 reports correct file size (bug report #54).
+NAME='i'
+FILE=malloc://1025
+ARGS=
+CMDS='i'
+EXPECT='file	1025
+fd	42
+size	0x401
+mode	r--
+block	0x40
+uri	malloc://1025'
+# fd changes in each test, replace it with 42.
+FILTER='sed "s/^fd\t[0-9][0-9]*/fd\t42/"'
+run_test
