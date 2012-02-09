@@ -63,6 +63,8 @@ The following variables are available:
                       output before comparing it with EXPECT. Useful to fix
                       random output to generate stable tests.
  * BROKEN (optional): This tests documents a bug which is not yet fixed.
+ * EXITCODE (optional): Check the exit code of radare2 matches. Can be used to
+                        check handling of invalid arguments.
 
 All uppercase variable names are reserved for the test system.
 

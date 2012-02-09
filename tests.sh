@@ -87,12 +87,25 @@ run_test() {
         mv "${TMP_OUT}.filter" "${TMP_OUT}"
     fi
 
+    # Check if radare2 exited with correct exit code.
+    if [ -n "${EXITCODE}" ]; then
+        if [ ${CODE} -eq "${EXITCODE}" ]; then
+            CODE=0
+            EXITCODE=
+        else
+            EXITCODE=${CODE}
+        fi
+    fi
+
     if [ ${CODE} -eq 47 ]; then
         test_failed "valgrind error"
         if [ -n "${VERBOSE}" ]; then
             cat "${TMP_VAL}"
             echo
         fi
+
+    elif [ -n "${EXITCODE}" ]; then
+        test_failed "wrong exit code: ${EXITCODE}"
 
     elif [ ! ${CODE} -eq 0 ]; then
         test_failed "radare2 crashed"
@@ -125,6 +138,7 @@ test_reset() {
     CMDS=
     EXPECT=
     FILTER=
+    EXITCODE=
     BROKEN=
 }
 
