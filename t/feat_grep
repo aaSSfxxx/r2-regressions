@@ -7,11 +7,31 @@
 ## grep
 
 # Basic grep.
-FILE=malloc://1024
+FILE=-
+NAME='px~:1[1]'
 ARGS=
 CMDS='
 wx 10203040
 px~:1[1]
 '
 EXPECT='1020'
+run_test
+
+FILE=-
+NAME='px~?'
+ARGS=
+CMDS='
+wx 10203040
+b 128
+px~?
+'
+EXPECT='9'
+run_test
+
+FILE=-
+NAME='i;$s'
+ARGS=
+CMDS='?v `i~size[1]`-$s;?? ?e works'
+EXPECT='0x0
+works'
 run_test

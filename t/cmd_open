@@ -5,14 +5,14 @@
 . ../tests.sh
 
 NAME='o-'
-FILE=malloc://1024
+FILE=-
 ARGS=
 CMDS='o-`o~[1]`;o'
 EXPECT=''
 run_test
 
 NAME='o -'
-FILE=malloc://1024
+FILE=-
 ARGS=
 CMDS='o -;o~?'
 EXPECT='2'

@@ -6,10 +6,33 @@
 
 ## Arithmetic expressions
 
-FILE=malloc://1024
+FILE=-
+NAME="10+30"
 ARGS=
 CMDS='
 ?v 0x10+0x30
 '
 EXPECT='0x40'
+run_test
+
+# TODO: needs to integrate calc.c into num_math!
+FILE=-
+NAME="1+3*2"
+ARGS=
+CMDS='?v 1+3*2'
+EXPECT='0x7'
+run_test
+
+FILE=-
+NAME="(1+3)*2"
+ARGS=
+CMDS='?v (1+3)*2'
+EXPECT='0x8'
+run_test
+
+FILE=-
+NAME='?v $b'
+ARGS=
+CMDS='b 123;?v $b'
+EXPECT='0x7b'
 run_test

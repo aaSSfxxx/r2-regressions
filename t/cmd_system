@@ -7,11 +7,22 @@
 # "!" - run commands (via system)
 
 NAME='!'
-FILE=malloc://1024
+FILE=-
 ARGS=
 CMDS='
 !echo fuck
 !echo yeah
+'
+EXPECT='fuck
+yeah'
+run_test
+
+NAME='!'
+FILE=-
+ARGS=
+CMDS='
+?e fuck
+?e yeah
 '
 EXPECT='fuck
 yeah'

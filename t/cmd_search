@@ -35,3 +35,17 @@ ARGS=
 CMDS='/c?'
 EXPECT=
 run_test
+
+
+## "/x" -- search hexadecimal
+
+NAME='/x'
+FILE=-
+ARGS=
+CMDS='wx 01020304 @ 0x100
+/x 01020304
+?v hit0_0'
+EXPECT='hits: 1  hit0_0 .. hit0_0
+hit0_0
+0x100'
+run_test

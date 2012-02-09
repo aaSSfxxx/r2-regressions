@@ -8,7 +8,7 @@
 
 # No crash if no arguments are given.
 NAME='?v'
-FILE=malloc://1024
+FILE=-
 ARGS=
 CMDS='?v'
 EXPECT='0x0'
@@ -16,7 +16,7 @@ run_test
 
 # File size reporting.
 NAME='?v'
-FILE=malloc://1024
+FILE=-
 ARGS=
 CMDS='?v $s'
 EXPECT='0x400'
