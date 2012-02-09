@@ -78,6 +78,7 @@ The test files should be named according to the following convention:
  * cmd_*: For each command (see libr/core/cmd.c).
  * feat_*: For features not tied to a single command, like grep or
            redirection.
+ * file_*: For each supported file format.
 
 License
 -------
