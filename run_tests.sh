@@ -73,10 +73,13 @@ else
 fi
 
 # Proper exit code.
-if [ "$TESTS_RUN" -eq "$TESTS_SUCCESS" ]; then
+if [ "${TESTS_RUN}" -eq "${TESTS_SUCCESS}" ]; then
     exit 0
-elif [ "$TESTS_FIXED" -gt 0 ]; then
-    exit 2
-else
-    exit 1
+elif [ "${TESTS_FAILED}" -eq 0 ]; then
+    if [ "${TESTS_BROKEN}" -ge 0 ]; then
+        exit 2
+    elif [ "${TESTS_FIXED}" -ge 0 ]; then
+        exit 3
+    fi
 fi
+exit 1

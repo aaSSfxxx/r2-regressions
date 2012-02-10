@@ -36,6 +36,16 @@ The following options can be passed to run_tests.sh or the individual tests
  * To get verbose output, use 'VERBOSE=1' (always enabled for individual
    tests).
 
+Exit code
+---------
+
+run_test.sh exits with the following exit codes:
+
+* 0: all tests passed
+* 1: at least one test failed
+* 2: no tests failed, but there was at least one broken test
+* 3: no tests failed or are broken, but there is at least one fixed test
+
 Reporting Radare2 Bugs
 ----------------------
 
