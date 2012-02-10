@@ -23,7 +23,7 @@ run_test
 
 # Writing of bytes.
 NAME='wx'
-FILE=-
+FILE=malloc://1024
 ARGS=
 CMDS='
 wx 010203

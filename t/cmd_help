@@ -8,7 +8,7 @@
 
 # No crash if no arguments are given.
 NAME='?v'
-FILE=-
+FILE=malloc://1024
 ARGS=
 CMDS='?v'
 EXPECT='0x0'

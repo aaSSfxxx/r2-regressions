@@ -40,7 +40,7 @@ run_test
 ## "/x" -- search hexadecimal
 
 NAME='/x'
-FILE=-
+FILE=malloc://1024
 ARGS=
 CMDS='wx 01020304 @ 0x100
 /x 01020304

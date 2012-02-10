@@ -7,7 +7,7 @@
 ## cache
 
 # Basic cache usage.
-FILE=-
+FILE=malloc://1024
 NAME='io.cache;wx'
 ARGS=
 CMDS='

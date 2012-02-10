@@ -7,7 +7,7 @@
 ## grep
 
 # Basic grep.
-FILE=-
+FILE=malloc://1024
 NAME='px~:1[1]'
 ARGS=
 CMDS='
@@ -17,7 +17,7 @@ px~:1[1]
 EXPECT='1020'
 run_test
 
-FILE=-
+FILE=malloc://1024
 NAME='px~?'
 ARGS=
 CMDS='
@@ -28,7 +28,7 @@ px~?
 EXPECT='9'
 run_test
 
-FILE=-
+FILE=malloc://1024
 NAME='i;$s'
 ARGS=
 CMDS='?v `i~size[1]`-$s;?? ?e works'
