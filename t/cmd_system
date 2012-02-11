@@ -16,14 +16,3 @@ CMDS='
 EXPECT='fuck
 yeah'
 run_test
-
-NAME='!'
-FILE=malloc://1024
-ARGS=
-CMDS='
-?e fuck
-?e yeah
-'
-EXPECT='fuck
-yeah'
-run_test

@@ -4,6 +4,20 @@
 
 . ../tests.sh
 
+## "?e" - echo string
+
+NAME='?e'
+FILE=malloc://1024
+ARGS=
+CMDS='
+?e fuck
+?e yeah
+'
+EXPECT='fuck
+yeah'
+run_test
+
+
 ## "?v" - hex value of math expr
 
 # No crash if no arguments are given.
