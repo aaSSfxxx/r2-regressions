@@ -71,7 +71,8 @@ run_test() {
     echo "${CMDS}"   > ${TMP_RAD}
     echo "${EXPECT}" > ${TMP_EXP}
     if [ -n "${VERBOSE}" ]; then
-        echo "${R2CMD}"
+        echo
+        echo "Command: ${R2CMD}"
     fi
     eval "${R2CMD}"
     CODE=$?
@@ -83,7 +84,11 @@ run_test() {
     # ${FILTER} can be used to filter out random results to create stable
     # tests.
     if [ -n "${FILTER}" ]; then
-        eval "cat ${TMP_OUT} | ${FILTER} > ${TMP_OUT}.filter"
+        FILTER_CMD="cat ${TMP_OUT} | ${FILTER} > ${TMP_OUT}.filter"
+        if [ -n "${VERBOSE}" ]; then
+            echo "Filter:  ${FILTER}"
+        fi
+        eval "${FILTER_CMD}"
         mv "${TMP_OUT}.filter" "${TMP_OUT}"
     fi
 
