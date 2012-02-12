@@ -4,6 +4,54 @@
 
 . ../tests.sh
 
+## Missing arguments shouldn't cause a crash.
+
+FILE=malloc://1024
+ARGS=
+CMDS='
+?v
+?=
+??
+?I
+?d
+?e
+?r
+?y
+?k
+?b
+?f
+?p
+?s
+?S
+?x
+?X
+?l
+?t
+?!
+?+
+?-
+'
+EXPECT="0x0
+0x0
+Use: ?d [opcode]    to get the description of the opcode
+
+0xrandomnr
+
+0000000000000000000000000000000000000000000000000000000000000000
+Whitespace expected after '?f'
+Virtual addresses not enabled!
+
+0
+0.004711
+0x0
+0x0
+0x0"
+# %r is a random number. %t displays a different time on each run.
+FILTER="sed 's/^0x[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]$/0xrandomnr/;
+             s/^0\\.00[0-9]*$/0.004711/'"
+run_test
+
+
 ## "?e" - echo string
 
 NAME='?e'
