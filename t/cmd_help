@@ -66,6 +66,89 @@ yeah'
 run_test
 
 
+## "?r" - generate random number between from-to
+
+NAME='?r'
+FILE=malloc://1024
+ARGS=
+CMDS='
+?r
+?r
+?r
+?r
+?r
+?r 10
+?r 10
+?r 10
+?r 10
+?r 10
+?r 10
+?r 10
+?r 10
+?r 10
+?r 10
+?r 10
+?r 10
+?r 10
+?r 10
+?r 10
+?r 10 16
+?r 10 16
+?r 10 16
+?r 10 16
+?r 10 16
+?r 10 16
+?r 10 16
+?r 10 16
+?r 10 16
+?r 10 16
+?r 10 16
+?r 10 16
+?r 10 16
+?r 10 16
+?r 10 16
+'
+EXPECT='0xrandomnr
+0xrandomnr
+0xrandomnr
+0xrandomnr
+0xrandomnr
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xsmallrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom
+0xlargerrandom'
+FILTER="sed 's/^0x[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]$/0xrandomnr/;
+             s/^0x[0-9]$/0xsmallrandom/;
+             s/^0x[a-f]$/0xlargerrandom/'"
+run_test
+
+
 ## "?v" - hex value of math expr
 
 NAME='?v'
