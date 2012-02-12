@@ -30,10 +30,3 @@ ARGS=
 CMDS='?v (1+3)*2'
 EXPECT='0x8'
 run_test
-
-FILE=malloc://1024
-NAME='?v $b'
-ARGS=
-CMDS='b 123;?v $b'
-EXPECT='0x7b'
-run_test
