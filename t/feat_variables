@@ -6,10 +6,8 @@
 
 ## Variables
 
-FILE=malloc://1024
-NAME='$variables (malloc)'
-ARGS=
-CMDS='
+# Used by multiple tests.
+cmds_variables='
 e asm.arch = x86
 e asm.bits =  32
 
@@ -93,6 +91,11 @@ wa call 0x01
 ?v $?
 ?e \n
 '
+
+FILE=malloc://1024
+NAME='$variables (malloc)'
+ARGS=
+CMDS="$cmds_variables"
 EXPECT='Current seek.
 0x0
 0x2a
@@ -118,6 +121,124 @@ Jump address.
 Jump fail address.
 0xffffffffffffffff
 0x6
+0xffffffffffffffff
+
+Opcode memory reference.
+0x500
+0xffffffffffffffff
+
+Opcode length.
+0x2
+0x5
+0x1
+
+End of (assembly) block?
+0x0
+0x1
+0x1
+0x0
+
+Get value of configuration variable.
+0x20
+
+Last comparision value.
+8 0x8 010 0000:0008 00001000 0.000000
+0x8
+0 0x0 00 0000:0000 00000000 0.000000
+0x0'
+run_test
+
+FILE=../s/x86-simple
+NAME='$variables (file x86)'
+ARGS=
+CMDS="
+# We can't write to a file.
+e io.cache = 1
+$cmds_variables"
+EXPECT='Current seek.
+0x8048060
+0x2a
+0x8048060
+
+Current io offset.
+0x60
+0x2a
+0x60
+
+File size reporting.
+0xfc
+
+Block size.
+0x7b
+123 0x7b 0173 0000:007B 01111011 0.000000
+
+Jump address.
+0x30
+0x1
+0xffffffffffffffff
+
+Jump fail address.
+0xffffffffffffffff
+0x8048066
+0xffffffffffffffff
+
+Opcode memory reference.
+0x500
+0xffffffffffffffff
+
+Opcode length.
+0x2
+0x5
+0x1
+
+End of (assembly) block?
+0x0
+0x1
+0x1
+0x0
+
+Get value of configuration variable.
+0x20
+
+Last comparision value.
+8 0x8 010 0000:0008 00001000 0.000000
+0x8
+0 0x0 00 0000:0000 00000000 0.000000
+0x0'
+run_test
+
+FILE=../s/x64-simple
+NAME='$variables (file x64)'
+ARGS=
+CMDS="
+# We can't write to a file.
+e io.cache = 1
+$cmds_variables"
+EXPECT='Current seek.
+0x400080
+0x2a
+0x400080
+
+Current io offset.
+0x80
+0x2a
+0x80
+
+File size reporting.
+0x170
+
+Block size.
+0x7b
+123 0x7b 0173 0000:007B 01111011 0.000000
+
+Jump address.
+0x30
+0x1
+0xffffffffffffffff
+
+Jump fail address.
+0xffffffffffffffff
+0x400086
 0xffffffffffffffff
 
 Opcode memory reference.
