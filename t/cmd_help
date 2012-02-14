@@ -34,7 +34,7 @@ EXPECT_ERR="Use: ?d [opcode]    to get the description of the opcode
 Whitespace expected after '?f'
 Virtual addresses not enabled!
 0.004711"
-EXPECT="0x0
+EXPECT='0x0
 0x0
 
 0xrandomnr
@@ -44,7 +44,7 @@ EXPECT="0x0
 0
 0x0
 0x0
-0x0"
+0x0'
 # %r is a random number. %t displays a different time on each run.
 FILTER="sed 's/^0x[0-9a-f][0-9a-f][0-9a-f]*$/0xrandomnr/g;
              s/^0\\.00[0-9]*$/0.004711/'"
@@ -60,7 +60,6 @@ CMDS='
 ?e fuck
 ?e yeah
 '
-EXPECT_ERR=""
 EXPECT='fuck
 yeah'
 run_test
@@ -108,7 +107,6 @@ CMDS='
 ?r 10 16
 ?r 10 16
 '
-EXPECT_ERR=""
 EXPECT='0xrandomnr
 0xrandomnr
 0xrandomnr

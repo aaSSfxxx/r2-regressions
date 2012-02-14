@@ -12,10 +12,11 @@ FILE=malloc://1025
 ARGS=
 CMDS='i'
 EXPECT='file	1025
+fd	42
 size	0x401
 mode	r--
 block	0x40
 uri	malloc://1025'
 # fd changes in each test, replace it with 42.
-FILTER='grep -v fd | sed "s/^fd\t[0-9][0-9]*/fd\t42/"'
+FILTER='sed "s/^fd	[0-9][0-9]*/fd	42/"'
 run_test

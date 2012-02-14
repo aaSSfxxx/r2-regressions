@@ -9,18 +9,18 @@
 # Test basic redirection.
 FILE=malloc://1024
 ARGS=
-CMDS="
+CMDS='
 # Normal redirect.
 pb 10 > dump
-!wc -c dump|awk '{ print \$1\" \"\$2 }'
+!wc -c dump|awk "{print \$1}"
 # Redirect with output bigger than CONS_MAX_USER.
 pb 12800 > dump
-!wc -c dump|awk '{print \$1\" \"\$2}'
+!wc -c dump|awk "{print \$1}"
 !rm -f dump
-"
-EXPECT=""
+'
+EXPECT=
 EXPECT_ERR="dump created
-81 dump
+81
 dump created
-102401 dump"
+102401"
 run_test
