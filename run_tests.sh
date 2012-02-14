@@ -73,8 +73,7 @@ else
 fi
 
 # Proper exit code.
-OK=$((${TESTS_SUCCESS}+${TESTS_FIXED}))
-if [ "${TESTS_RUN}" -eq "${OK}" ]; then
+if [ "${TESTS_RUN}" -eq "${TESTS_SUCCESS}" ]; then
     exit 0
 elif [ "${TESTS_FAILED}" -eq 0 ]; then
     if [ "${TESTS_BROKEN}" -ge 0 ]; then
