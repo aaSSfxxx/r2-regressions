@@ -17,6 +17,7 @@ Requirements
 ------------
 
  * Radare2 installed (and in $PATH or set the R2 environment).
+ * Valgrind (optional).
 
 Usage
 -----
