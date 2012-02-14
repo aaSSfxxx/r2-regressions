@@ -87,17 +87,18 @@ run_test() {
     # ${FILTER} can be used to filter out random results to create stable
     # tests.
     if [ -n "${FILTER}" ]; then
+        # Filter stdout.
         FILTER_CMD="cat ${TMP_OUT} | ${FILTER} > ${TMP_OUT}.filter"
         if [ -n "${VERBOSE}" ]; then
-            echo "Filter:  ${FILTER}"
+            echo "Filter (stdout):  ${FILTER}"
         fi
         eval "${FILTER_CMD}"
         mv "${TMP_OUT}.filter" "${TMP_OUT}"
 
-	#err
+        # Filter stderr.
         FILTER_CMD="cat ${TMP_ERR} | ${FILTER} > ${TMP_ERR}.filter"
         if [ -n "${VERBOSE}" ]; then
-            echo "Filter:  ${FILTER}"
+            echo "Filter (stderr):  ${FILTER}"
         fi
         eval "${FILTER_CMD}"
         mv "${TMP_ERR}.filter" "${TMP_ERR}"
@@ -127,24 +128,25 @@ run_test() {
         test_failed "radare2 crashed"
         if [ -n "${VERBOSE}" ]; then
             cat "${TMP_OUT}"
+            cat "${TMP_ERR}"
             echo
         fi
 
     elif [ "$(cat "${TMP_OUT}")" = "${EXPECT}" ]; then
-      # success
-      if [ -n "${EXPECT_ERR}" ]; then
-          if [ "$(cat "${TMP_ERR}")" = "${EXPECT_ERR}" ]; then
-              test_success
-          else
-              test_failed "unexpected errcome"
-              if [ -n "${VERBOSE}" ]; then
-                 diff -u ${TMP_ERR} ${TMP_EXR}
-                  echo
-              fi
-          fi
-      else
-        test_success
-      fi
+        # success
+        if [ -n "${EXPECT_ERR}" ]; then
+            if [ "$(cat "${TMP_ERR}")" = "${EXPECT_ERR}" ]; then
+                test_success
+            else
+                test_failed "unexpected errcome"
+                if [ -n "${VERBOSE}" ]; then
+                    diff -u ${TMP_ERR} ${TMP_EXR}
+                    echo
+                fi
+            fi
+        else
+            test_success
+        fi
     else
         test_failed "unexpected outcome"
         if [ -n "${VERBOSE}" ]; then
@@ -153,7 +155,8 @@ run_test() {
         fi
     fi
 
-    rm -f "${TMP_RAD}" "${TMP_OUT}" "${TMP_VAL}" "${TMP_EXP}" "${TMP_ERR}"
+    rm -f "${TMP_RAD}" "${TMP_OUT}" "${TMP_ERR}" "${TMP_VAL}" \
+          "${TMP_EXP}" "${TMP_EXR}"
 
     # Reset most variables in case the next test script doesn't set them.
     test_reset
