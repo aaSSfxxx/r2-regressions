@@ -6,8 +6,8 @@
 
 ## Arithmetic expressions
 
-FILE=malloc://1024
 NAME='basic'
+FILE=malloc://1024
 ARGS=
 CMDS='
 ?v 0x10+0x30

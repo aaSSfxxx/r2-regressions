@@ -7,8 +7,8 @@
 ## grep
 
 # Basic grep.
-FILE=malloc://1024
 NAME='px~:1[1]'
+FILE=malloc://1024
 ARGS=
 CMDS='
 wx 10203040
@@ -17,8 +17,8 @@ px~:1[1]
 EXPECT='1020'
 run_test
 
-FILE=malloc://1024
 NAME='px~?'
+FILE=malloc://1024
 ARGS=
 CMDS='
 wx 10203040
@@ -28,8 +28,8 @@ px~?
 EXPECT='9'
 run_test
 
-FILE=malloc://1024
 NAME='i;$s'
+FILE=malloc://1024
 ARGS=
 CMDS='?v `i~size[1]`-$s;?? ?e works'
 EXPECT='0x0

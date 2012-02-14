@@ -92,8 +92,8 @@ wa call 0x01
 ?e \n
 '
 
-FILE=malloc://1024
 NAME='$variables (malloc)'
+FILE=malloc://1024
 ARGS=
 CMDS="$cmds_variables"
 EXPECT='Current seek.
@@ -148,8 +148,8 @@ Last comparision value.
 0x0'
 run_test
 
-FILE=../s/x86-simple
 NAME='$variables (file x86)'
+FILE=../s/x86-simple
 ARGS=
 CMDS="
 # We can't write to a file.
@@ -207,8 +207,8 @@ Last comparision value.
 0x0'
 run_test
 
-FILE=../s/x64-simple
 NAME='$variables (file x64)'
+FILE=../s/x64-simple
 ARGS=
 CMDS="
 # We can't write to a file.
