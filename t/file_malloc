@@ -15,7 +15,6 @@ i
 px
 '
 EXPECT='file	1024
-fd	42
 size	0x400
 mode	r--
 block	0x40
@@ -26,7 +25,7 @@ uri	malloc://1024
 0x00000020  0000 0000 0000 0000 0000 0000 0000 0000  ................
 0x00000030  0000 0000 0000 0000 0000 0000 0000 0000  ................'
 # fd changes in each test, replace it with 42.
-FILTER='sed "s/^fd\t[0-9][0-9]*/fd\t42/"'
+FILTER='grep -v fd | sed "s/^fd\t[0-9][0-9]*/fd\t42/"'
 run_test
 
 # Small request.
@@ -38,7 +37,6 @@ i
 px
 '
 EXPECT='file	1
-fd	42
 size	0x1
 mode	r--
 block	0x40
@@ -49,7 +47,7 @@ uri	malloc://1
 0x00000020  ffff ffff ffff ffff ffff ffff ffff ffff  ................
 0x00000030  ffff ffff ffff ffff ffff ffff ffff ffff  ................'
 # fd changes in each test, replace it with 42.
-FILTER='sed "s/^fd\t[0-9][0-9]*/fd\t42/"'
+FILTER='grep -v fd | sed "s/^fd\t[0-9][0-9]*/fd\t42/"'
 run_test
 
 # No memory requested.
@@ -58,7 +56,8 @@ FILE=malloc://
 ARGS=
 CMDS='
 '
-EXPECT='Cannot allocate () 0 bytes
+EXPECT=''
+EXPECT_ERR='Cannot allocate () 0 bytes
 Cannot open file.'
 EXITCODE=1
 run_test

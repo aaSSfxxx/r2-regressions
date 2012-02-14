@@ -12,7 +12,6 @@ CMDS='
 ?v
 ?=
 ??
-?I
 ?d
 ?e
 ?r
@@ -31,23 +30,23 @@ CMDS='
 ?+
 ?-
 '
+EXPECT_ERR="Use: ?d [opcode]    to get the description of the opcode
+Whitespace expected after '?f'
+Virtual addresses not enabled!
+0.004711"
 EXPECT="0x0
 0x0
-Use: ?d [opcode]    to get the description of the opcode
 
 0xrandomnr
 
 0000000000000000000000000000000000000000000000000000000000000000
-Whitespace expected after '?f'
-Virtual addresses not enabled!
 
 0
-0.004711
 0x0
 0x0
 0x0"
 # %r is a random number. %t displays a different time on each run.
-FILTER="sed 's/^0x[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]$/0xrandomnr/;
+FILTER="sed 's/^0x[0-9a-f][0-9a-f][0-9a-f]*$/0xrandomnr/g;
              s/^0\\.00[0-9]*$/0.004711/'"
 run_test
 
@@ -61,6 +60,7 @@ CMDS='
 ?e fuck
 ?e yeah
 '
+EXPECT_ERR=""
 EXPECT='fuck
 yeah'
 run_test
@@ -108,6 +108,7 @@ CMDS='
 ?r 10 16
 ?r 10 16
 '
+EXPECT_ERR=""
 EXPECT='0xrandomnr
 0xrandomnr
 0xrandomnr
@@ -143,9 +144,9 @@ EXPECT='0xrandomnr
 0xlargerrandom
 0xlargerrandom
 0xlargerrandom'
-FILTER="sed 's/^0x[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]$/0xrandomnr/;
-             s/^0x[0-9]$/0xsmallrandom/;
-             s/^0x[a-f]$/0xlargerrandom/'"
+FILTER="sed 's/^0x[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]*$/0xrandomnr/g;
+             s/^0x[0-9]$/0xsmallrandom/g;
+             s/^0x[a-f]$/0xlargerrandom/g'"
 run_test
 
 

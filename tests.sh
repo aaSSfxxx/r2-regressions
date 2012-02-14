@@ -55,11 +55,13 @@ run_test() {
     mkdir -p ../tmp
     TMP_RAD=$(mktemp "../tmp/${TEST_NAME}-rad.XXXXXX")
     TMP_OUT=$(mktemp "../tmp/${TEST_NAME}-out.XXXXXX")
+    TMP_ERR=$(mktemp "../tmp/${TEST_NAME}-err.XXXXXX")
+    TMP_EXR=$(mktemp "../tmp/${TEST_NAME}-exr.XXXXXX") # expected error
     TMP_VAL=$(mktemp "../tmp/${TEST_NAME}-val.XXXXXX")
     TMP_EXP=$(mktemp "../tmp/${TEST_NAME}-exp.XXXXXX")
 
     # No colors and no user configs.
-    R2ARGS="${R2} -e scr.color=0 -N -q -i ${TMP_RAD} ${ARGS} ${FILE} > ${TMP_OUT} 2>&1"
+    R2ARGS="${R2} -e scr.color=0 -N -q -i ${TMP_RAD} ${ARGS} ${FILE} > ${TMP_OUT} 2> ${TMP_ERR}"
     R2CMD=
     # Valgrind to detect memory corruption.
     if [ -n "${VALGRIND}" ]; then
@@ -70,6 +72,7 @@ run_test() {
     # Put expected outcome and program to run in files and run the test.
     echo "${CMDS}"   > ${TMP_RAD}
     echo "${EXPECT}" > ${TMP_EXP}
+    echo "${EXPECT_ERR}" > ${TMP_EXR}
     if [ -n "${VERBOSE}" ]; then
         echo
         echo "Command: ${R2CMD}"
@@ -90,6 +93,14 @@ run_test() {
         fi
         eval "${FILTER_CMD}"
         mv "${TMP_OUT}.filter" "${TMP_OUT}"
+
+	#err
+        FILTER_CMD="cat ${TMP_ERR} | ${FILTER} > ${TMP_ERR}.filter"
+        if [ -n "${VERBOSE}" ]; then
+            echo "Filter:  ${FILTER}"
+        fi
+        eval "${FILTER_CMD}"
+        mv "${TMP_ERR}.filter" "${TMP_ERR}"
     fi
 
     # Check if radare2 exited with correct exit code.
@@ -120,8 +131,20 @@ run_test() {
         fi
 
     elif [ "$(cat "${TMP_OUT}")" = "${EXPECT}" ]; then
+      # success
+      if [ -n "${EXPECT_ERR}" ]; then
+          if [ "$(cat "${TMP_ERR}")" = "${EXPECT_ERR}" ]; then
+              test_success
+          else
+              test_failed "unexpected errcome"
+              if [ -n "${VERBOSE}" ]; then
+                 diff -u ${TMP_ERR} ${TMP_EXR}
+                  echo
+              fi
+          fi
+      else
         test_success
-
+      fi
     else
         test_failed "unexpected outcome"
         if [ -n "${VERBOSE}" ]; then
@@ -130,7 +153,7 @@ run_test() {
         fi
     fi
 
-    rm -f "${TMP_RAD}" "${TMP_OUT}" "${TMP_VAL}" "${TMP_EXP}"
+    rm -f "${TMP_RAD}" "${TMP_OUT}" "${TMP_VAL}" "${TMP_EXP}" "${TMP_ERR}"
 
     # Reset most variables in case the next test script doesn't set them.
     test_reset
@@ -142,6 +165,7 @@ test_reset() {
     ARGS=
     CMDS=
     EXPECT=
+    EXPECT_ERR=
     FILTER=
     EXITCODE=
     BROKEN=
