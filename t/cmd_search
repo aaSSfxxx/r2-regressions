@@ -37,7 +37,6 @@ run_test
 
 ## "/x" -- search hexadecimal
 
-BROKEN=1
 NAME='/x'
 FILE=malloc://1024
 ARGS=
