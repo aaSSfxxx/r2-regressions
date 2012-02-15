@@ -26,7 +26,6 @@ EXPECT_ERR='Searching 4 bytes from 0x00000000 to 0x00000400: 74 65 73 74
 hits: 3  hit0_0 .. hit0_2
 '
 run_test
-EXPECT_ERR=""
 
 
 ## "/c" -- search for asm code
