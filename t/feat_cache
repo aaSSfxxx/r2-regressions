@@ -6,15 +6,120 @@
 
 ## cache
 
-# Basic cache usage.
+# Cache write.
+NAME='minimal usage'
 FILE=malloc://1024
-NAME='io.cache;wx'
 ARGS=
 CMDS='
 e io.cache=1
 wx 010203
 p8 3
+wcr
+# Test write works after disabling the cache.
+e io.cache=0
+wx 040506
+p8 3
 '
 EXPECT='010203
+040506
 '
 run_test
+
+# Cache usage. Cache write, cache reset, cache commit.
+FILE=malloc://1024
+ARGS='basic usage'
+ARGS=
+CMDS='
+?e
+b 0xf
+px
+w no-cache
+px
+
+e io.cache=1
+w cache-mode
+px
+
+# Reseting cache restores original data.
+wcr
+px
+w overwrite
+px
+wci
+
+# Commit cache overwrites original data.
+px
+
+# Reset cache with no pending cache entries.
+wcr
+wci
+px
+'
+EXPECT='
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  0000 0000 0000 0000 0000 0000 0000 00    ............... 
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  6e6f 2d63 6163 6865 0000 0000 0000 00    no-cache....... 
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  6361 6368 652d 6d6f 6465 0000 0000 00    cache-mode..... 
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  6e6f 2d63 6163 6865 0000 0000 0000 00    no-cache....... 
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  6f76 6572 7772 6974 6500 0000 0000 00    overwrite...... 
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  6f76 6572 7772 6974 6500 0000 0000 00    overwrite...... 
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  6f76 6572 7772 6974 6500 0000 0000 00    overwrite...... 
+'
+run_test
+
+# Basic cache usage with an empty file. Cache write, cache reset, cache
+# commit. Also tests if undo at end of file works.
+touch empty.tmp
+NAME='basic usage (empty file)'
+FILE=empty.tmp
+ARGS='-w'
+CMDS='
+?e
+b 0xf
+px
+w no-cache
+px
+e io.cache=1
+w cache-mode
+px
+# Reseting cache restores original data.
+wcr
+px
+w overwrite
+px
+wci
+# Commit cache overwrites original data.
+px
+# Reset cache with no pending cache entries.
+wcr
+wci
+px
+# File was correctly writen.
+!cat empty.tmp
+?e
+'
+EXPECT='
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  ffff ffff ffff ffff ffff ffff ffff ff    ............... 
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  6e6f 2d63 6163 6865 ffff ffff ffff ff    no-cache....... 
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  6361 6368 652d 6d6f 6465 ffff ffff ff    cache-mode..... 
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  6e6f 2d63 6163 6865 ffff ffff ffff ff    no-cache....... 
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  6f76 6572 7772 6974 65ff ffff ffff ff    overwrite...... 
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  6f76 6572 7772 6974 65ff ffff ffff ff    overwrite...... 
+   offset    0 1  2 3  4 5  6 7  8 9  A B  C D  E F  0123456789ABCDEF
+0x00000000  6f76 6572 7772 6974 65ff ffff ffff ff    overwrite...... 
+overwrite
+'
+run_test
+rm -f empty.tmp
