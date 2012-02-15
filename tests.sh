@@ -32,7 +32,7 @@ run_test() {
     NAME_TMP="${TEST_NAME}"
     [ -n "${NAME}" ]     && NAME_TMP="${NAME_TMP}: ${NAME}"
     [ -n "${VALGRIND}" ] && NAME_TMP="${NAME_TMP} (valgrind)"
-    printf "%-40s" "${NAME_TMP}"
+    printf "%-50s" "${NAME_TMP}"
 
     # Check required variables.
     if [ -z "${FILE}" ]; then
