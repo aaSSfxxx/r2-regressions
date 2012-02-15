@@ -14,5 +14,6 @@ CMDS='
 !echo yeah
 '
 EXPECT='fuck
-yeah'
+yeah
+'
 run_test

@@ -22,5 +22,6 @@ EXPECT=
 EXPECT_ERR='dump created
 81
 dump created
-102401'
+102401
+'
 run_test

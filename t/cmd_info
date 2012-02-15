@@ -34,7 +34,8 @@ fd	42
 size	0x401
 mode	r--
 block	0x40
-uri	malloc://1025'
+uri	malloc://1025
+'
 # fd changes in each test, replace it with 42.
 FILTER='sed "s/^fd	[0-9][0-9]*/fd	42/"'
 run_test
@@ -267,7 +268,8 @@ Strings.
 [strings]
 
 0 strings
-fs strings'
+fs strings
+'
 # fd changes in each test, replace it with 42.
 FILTER='sed "s/^fd	[0-9][0-9]*/fd	42/;
              s/^file	\/.*\.\.\/s\/x86-simple$/file	..\/s\/x86-simple/;
@@ -461,7 +463,8 @@ Strings.
 [strings]
 
 0 strings
-fs strings'
+fs strings
+'
 # fd changes in each test, replace it with 42.
 FILTER='sed "s/^fd	[0-9][0-9]*/fd	42/;
              s/^file	\/.*\.\.\/s\/x64-simple$/file	..\/s\/x64-simple/;

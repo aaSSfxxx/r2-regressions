@@ -70,9 +70,9 @@ run_test() {
     R2CMD="echo q | ${R2CMD} ${R2ARGS}"
 
     # Put expected outcome and program to run in files and run the test.
-    echo "${CMDS}"   > ${TMP_RAD}
-    echo "${EXPECT}" > ${TMP_EXP}
-    echo "${EXPECT_ERR}" > ${TMP_EXR}
+    printf "%s\n" "${CMDS}" > ${TMP_RAD}
+    printf "%s" "${EXPECT}" > ${TMP_EXP}
+    printf "%s" "${EXPECT_ERR}" > ${TMP_EXR}
     if [ -n "${VERBOSE}" ]; then
         echo
         echo "Command: ${R2CMD}"
@@ -114,6 +114,12 @@ run_test() {
         fi
     fi
 
+    # Check if the output matched.
+    diff "${TMP_OUT}" "${TMP_EXP}" >/dev/null
+    OUT_CODE=$?
+    diff "${TMP_ERR}" "${TMP_EXR}" >/dev/null
+    ERR_CODE=$?
+
     if [ ${CODE} -eq 47 ]; then
         test_failed "valgrind error"
         if [ -n "${VERBOSE}" ]; then
@@ -124,7 +130,7 @@ run_test() {
     elif [ -n "${EXITCODE}" ]; then
         test_failed "wrong exit code: ${EXITCODE}"
 
-    elif [ ! ${CODE} -eq 0 ]; then
+    elif [ ${CODE} -ne 0 ]; then
         test_failed "radare2 crashed"
         if [ -n "${VERBOSE}" ]; then
             cat "${TMP_OUT}"
@@ -132,27 +138,22 @@ run_test() {
             echo
         fi
 
-    elif [ "$(cat "${TMP_OUT}")" = "${EXPECT}" ]; then
-        # success
-        if [ -n "${EXPECT_ERR}" ]; then
-            if [ "$(cat "${TMP_ERR}")" = "${EXPECT_ERR}" ]; then
-                test_success
-            else
-                test_failed "unexpected errcome"
-                if [ -n "${VERBOSE}" ]; then
-                    diff -u ${TMP_ERR} ${TMP_EXR}
-                    echo
-                fi
-            fi
-        else
-            test_success
-        fi
-    else
+    elif [ ${OUT_CODE} -ne 0 ]; then
         test_failed "unexpected outcome"
         if [ -n "${VERBOSE}" ]; then
-            diff -u ${TMP_EXP} ${TMP_OUT}
+            diff -u "${TMP_EXP}" "${TMP_OUT}"
             echo
         fi
+
+    elif [ ${ERR_CODE} -ne 0 ]; then
+        test_failed "unexpected errcome"
+        if [ -n "${VERBOSE}" ]; then
+            diff -u "${TMP_EXR}" "${TMP_ERR}"
+            echo
+        fi
+
+    else
+        test_success
     fi
 
     rm -f "${TMP_RAD}" "${TMP_OUT}" "${TMP_ERR}" "${TMP_VAL}" \

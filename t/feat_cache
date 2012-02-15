@@ -15,5 +15,6 @@ e io.cache=1
 wx 010203
 p8 3
 '
-EXPECT='010203'
+EXPECT='010203
+'
 run_test

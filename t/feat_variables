@@ -89,7 +89,6 @@ wa call 0x01
 ?v $?
 ? 0
 ?v $?
-?e
 '
 
 NAME='$variables (malloc)'
@@ -145,7 +144,8 @@ Last comparision value.
 8 0x8 010 0000:0008 00001000 8.0 0.000000
 0x8
 0 0x0 00 0000:0000 00000000 0.0 0.000000
-0x0'
+0x0
+'
 run_test
 
 NAME='$variables (file x86)'
@@ -204,7 +204,8 @@ Last comparision value.
 8 0x8 010 0000:0008 00001000 8.0 0.000000
 0x8
 0 0x0 00 0000:0000 00000000 0.0 0.000000
-0x0'
+0x0
+'
 run_test
 
 NAME='$variables (file x64)'
@@ -263,5 +264,6 @@ Last comparision value.
 8 0x8 010 0000:0008 00001000 8.0 0.000000
 0x8
 0 0x0 00 0000:0000 00000000 0.0 0.000000
-0x0'
+0x0
+'
 run_test

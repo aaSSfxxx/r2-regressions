@@ -15,7 +15,8 @@ e asm.profile=simple
 pi 2
 '
 EXPECT='nop
-mov eax, 0x21'
+mov eax, 0x21
+'
 run_test
 
 
@@ -29,7 +30,8 @@ CMDS='
 wx 010203
 p8 3
 '
-EXPECT='010203'
+EXPECT='010203
+'
 run_test
 
 
@@ -44,5 +46,6 @@ wx 0001020304050607
 woa 01 @0:8
 p8 8
 '
-EXPECT='0102030405060708'
+EXPECT='0102030405060708
+'
 run_test

@@ -24,7 +24,8 @@ uri	malloc://1024
 0x00000000  0000 0000 0000 0000 0000 0000 0000 0000  ................
 0x00000010  0000 0000 0000 0000 0000 0000 0000 0000  ................
 0x00000020  0000 0000 0000 0000 0000 0000 0000 0000  ................
-0x00000030  0000 0000 0000 0000 0000 0000 0000 0000  ................'
+0x00000030  0000 0000 0000 0000 0000 0000 0000 0000  ................
+'
 # fd changes in each test, replace it with 42.
 FILTER='sed "s/^fd	[0-9][0-9]*/fd	42/"'
 run_test
@@ -47,7 +48,8 @@ uri	malloc://1
 0x00000000  00ff ffff ffff ffff ffff ffff ffff ffff  ................
 0x00000010  ffff ffff ffff ffff ffff ffff ffff ffff  ................
 0x00000020  ffff ffff ffff ffff ffff ffff ffff ffff  ................
-0x00000030  ffff ffff ffff ffff ffff ffff ffff ffff  ................'
+0x00000030  ffff ffff ffff ffff ffff ffff ffff ffff  ................
+'
 # fd changes in each test, replace it with 42.
 FILTER='sed "s/^fd	[0-9][0-9]*/fd	42/"'
 run_test
@@ -60,6 +62,7 @@ CMDS='
 '
 EXPECT=
 EXPECT_ERR='Cannot allocate () 0 bytes
-Cannot open file.'
+Cannot open file.
+'
 EXITCODE=1
 run_test

@@ -14,7 +14,8 @@ CMDS='
 wx 10203040
 px~:1[1]
 '
-EXPECT='1020'
+EXPECT='1020
+'
 run_test
 
 NAME='px~?'
@@ -25,7 +26,8 @@ wx 10203040
 b 128
 px~?
 '
-EXPECT='9'
+EXPECT='9
+'
 run_test
 
 NAME='i;$s'
@@ -33,5 +35,6 @@ FILE=malloc://1024
 ARGS=
 CMDS='?v `i~size[1]`-$s;?? ?e works'
 EXPECT='0x0
-works'
+works
+'
 run_test

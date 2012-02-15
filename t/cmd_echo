@@ -12,7 +12,8 @@ CMDS='
 ?e
 ?e world
 '
-EXPECT="hello
+EXPECT='hello
 
-world"
+world
+'
 run_test

@@ -15,5 +15,6 @@ NAME='o -'
 FILE=malloc://1024
 ARGS=
 CMDS='o -;o~?'
-EXPECT='2'
+EXPECT='2
+'
 run_test

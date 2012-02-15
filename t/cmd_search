@@ -20,7 +20,8 @@ w test@666
 '
 EXPECT='hit0_0
 hit0_1
-hit0_2'
+hit0_2
+'
 run_test
 
 
@@ -44,5 +45,6 @@ CMDS='wx 01020304 @ 0x100
 /x 01020304
 ?v hit0_0'
 EXPECT='hit0_0
-0x100'
+0x100
+'
 run_test
