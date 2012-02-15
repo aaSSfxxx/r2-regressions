@@ -4,7 +4,7 @@
 
 . ../tests.sh
 
-# ">" - redirection
+## ">" - redirection
 
 # Test basic redirection.
 FILE=malloc://1024
@@ -19,8 +19,8 @@ pb 12800 > dump
 !rm -f dump
 '
 EXPECT=
-EXPECT_ERR="dump created
+EXPECT_ERR='dump created
 81
 dump created
-102401"
+102401'
 run_test
