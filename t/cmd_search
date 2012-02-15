@@ -22,7 +22,11 @@ EXPECT='hit0_0
 hit0_1
 hit0_2
 '
+EXPECT_ERR='Searching 4 bytes from 0x00000000 to 0x00000400: 74 65 73 74 
+hits: 3  hit0_0 .. hit0_2
+'
 run_test
+EXPECT_ERR=""
 
 
 ## "/c" -- search for asm code
@@ -46,5 +50,7 @@ CMDS='wx 01020304 @ 0x100
 ?v hit0_0'
 EXPECT='hit0_0
 0x100
+'
+EXPECT_ERR='hits: 1  hit0_0 .. hit0_0
 '
 run_test
