@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
+
+. ../tests.sh
+
+## Basic input tests.
+
+NAME='comments'
+FILE=malloc://1024
+ARGS=
+CMDS='
+# This is a comment.
+# This is a comment with a ; in it - and it is still only a comment.
+# Other stuff is also ignored: `..` ~ ..
+
+# But inside a command line only the commands after the # are ignored.
+?v $$ ; # this is ignored ; ?v $$
+'
+EXPECT='0x0'
+run_test
