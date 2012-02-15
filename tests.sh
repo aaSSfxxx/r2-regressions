@@ -189,6 +189,7 @@ test_success() {
         fi
     fi
 }
+
 test_failed() {
     if [ -z "${BROKEN}" ]; then
         print_failed "FAIL ($1)"
@@ -208,9 +209,11 @@ test_failed() {
 print_success() {
     printf "%b" "\033[32m${*}\033[0m\n"
 }
+
 print_failed() {
     printf "%b" "\033[31m${*}\033[0m\n"
 }
+
 print_fixed() {
     printf "%b" "\033[33m${*}\033[0m\n"
 }

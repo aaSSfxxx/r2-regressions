@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
+
+. ../tests.sh
+
+NAME='?e'
+FILE=-
+ARGS=
+CMDS='
+?e hello
+?e
+?e world
+'
+EXPECT="hello
+
+world"
+run_test

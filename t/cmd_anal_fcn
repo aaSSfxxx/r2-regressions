@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
+
+. ../tests.sh
+
+NAME='af x86-32'
+FILE=malloc://1024
+ARGS=
+CMDS='
+e asm.arch=x86
+e asm.bits=32
+wx 6a00 4889e5 c3 
+af
+afl~[1]
+'
+EXPECT=6
+run_test
+
+# test if function analysis works in jmp
+NAME='af x86-32 jmpend'
+FILE=malloc://1024
+ARGS=
+CMDS='
+e asm.arch=x86
+e asm.bits=32
+wx 6a00 4889e5 ff25f8120000 ff25f8120000
+af
+afl~[1]
+'
+EXPECT=11
+run_test

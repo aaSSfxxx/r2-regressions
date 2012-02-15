@@ -17,7 +17,7 @@ s 42
 ?v $$
 s-
 ?v $$
-?e \n
+?e
 
 ?e Current io offset.
 ?v $o
@@ -25,15 +25,15 @@ s 42
 ?v $o
 s-
 ?v $o
-?e \n
+?e
 
 ?e File size reporting.
 ?v $s
-?e \n
+?e
 
 ?e Block size.
 b 123;?v $b;? $b
-?e \n
+?e
 
 ?e Jump address.
 wa jmp 0x30
@@ -42,7 +42,7 @@ wa jz 0x01
 ?v $j
 wa xor eax, eax
 ?v $j
-?e \n
+?e
 
 ?e Jump fail address.
 wa jmp 0x30
@@ -51,14 +51,14 @@ wa jz 0x01
 ?v $f
 wa xor eax, eax
 ?v $f
-?e \n
+?e
 
 ?e Opcode memory reference.
 wa mov eax, [0x500]
 ?v $r
 wa mov eax, ebx
 ?v $r
-?e \n
+?e
 
 ?e Opcode length.
 wa xor eax, eax
@@ -67,7 +67,7 @@ wa mov esp, 0x1
 ?v $l
 wa ret
 ?v $l
-?e \n
+?e
 
 ?e End of (assembly) block?
 wa inc eax
@@ -78,18 +78,18 @@ wa ret
 ?v $e
 wa call 0x01
 ?v $e
-?e \n
+?e
 
 ?e Get value of configuration variable.
 ?v ${asm.bits}
-?e \n
+?e
 
 ?e Last comparision value.
 ? 5 + 3
 ?v $?
 ? 0
 ?v $?
-?e \n
+?e
 '
 
 NAME='$variables (malloc)'

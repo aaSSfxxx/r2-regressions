@@ -43,37 +43,37 @@ run_test
 cmds_info='
 ?e Basic information.
 i
-?e \n
+?e
 
 ?e All information.
 ia
 ia*
-?e \n
+?e
 
 ?e Imports.
 ii
 ii*
-?e \n
+?e
 
 ?e Binary info.
 iI
 iI*
-?e \n
+?e
 
 ?e Entrypoints.
 ie
 ie*
-?e \n
+?e
 
 ?e Symbols.
 is
 is*
-?e \n
+?e
 
 ?e Sections.
 iS
 iS*
-?e \n
+?e
 
 ?e Strings.
 iz
