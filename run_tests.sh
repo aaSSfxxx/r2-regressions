@@ -18,12 +18,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-die() {
-    echo "$1"
-    exit 1
-}
-
-
 # Statistics.
 TESTS_RUN=0
 TESTS_SUCCESS=0
@@ -34,8 +28,18 @@ TESTS_FIXED=0
 # Let tests.sh know the complete test suite is run, enables statistics.
 R2_SOURCED=1
 
-. ./tests.sh
+die() {
+    echo "$1"
+    exit 1
+}
 
+control_c() {
+	echo
+	exit 1
+}
+trap control_c 2
+
+. ./tests.sh
 
 # Run all tests.
 cd t || die "t/ doesn't exist"

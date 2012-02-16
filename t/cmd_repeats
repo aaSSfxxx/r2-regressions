@@ -18,6 +18,7 @@ hi
 '
 run_test
 
+BROKEN=1
 NAME='3p8;?e hi'
 FILE=-
 ARGS=
@@ -31,6 +32,7 @@ hi
 '
 run_test
 
+BROKEN=1
 NAME='3p8&&?e hi'
 FILE=-
 ARGS=
@@ -44,6 +46,7 @@ hi
 '
 run_test
 
+BROKEN=1
 NAME='3"p8&&?e hi"'
 FILE=-
 ARGS=

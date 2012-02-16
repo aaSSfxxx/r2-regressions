@@ -7,7 +7,7 @@
 # "!" - run commands (via system)
 
 NAME='!'
-FILE=malloc://1024
+FILE=-
 ARGS=
 CMDS='
 !echo fuck
@@ -15,5 +15,57 @@ CMDS='
 '
 EXPECT='fuck
 yeah
+'
+run_test
+
+NAME='!|'
+FILE=-
+ARGS=
+CMDS='
+!echo fuck|grep bob
+'
+EXPECT=''
+run_test
+
+BROKEN=1
+NAME='!|'
+FILE=-
+ARGS=
+CMDS='
+!echo fuck|sed -e s,fuck,yeah,
+'
+EXPECT='yeah
+'
+run_test
+
+# BUG in r2: XXX: EXPECT_ERR must be EXPECT (output to stdout)
+NAME='?e|'
+FILE=-
+ARGS=
+CMDS='
+?e fuck|sed -e s,fuck,yeah,
+'
+EXPECT_ERR='yeah
+'
+run_test
+
+NAME='p8 `?e 3`'
+FILE=-
+ARGS=
+CMDS='
+p8 `?e 3`
+'
+EXPECT='000000
+'
+run_test
+
+BROKEN=1
+NAME='p8 `!echo 3`'
+FILE=-
+ARGS=
+CMDS='
+p8 `!echo 3`
+'
+EXPECT='000000
 '
 run_test

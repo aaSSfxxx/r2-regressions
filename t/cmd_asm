@@ -1,0 +1,74 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
+
+. ../tests.sh
+
+## "i" - get info about opened file
+
+NAME='wa;pi x86-32'
+FILE=-
+ARGS=
+CMDS='
+e asm.arch=x86
+e asm.bits=32
+wa mov eax, 0x21
+   pi 1;sn
+wa nop
+   pi 1;sn
+wa int 0x80
+   pi 1;sn
+?v $$
+'
+EXPECT='mov eax, 0x21
+nop
+int 0x80
+0x8
+'
+run_test
+
+NAME='wa;pi java'
+FILE=-
+ARGS=
+CMDS='
+e asm.arch=java
+wa bipush 32
+sn
+wa nop
+sn
+wa iadd
+sn
+?v $$
+pi 3 @0
+'
+EXPECT='0x4
+bipush 32
+nop
+iadd
+'
+run_test
+
+NAME='wa;pi arm'
+FILE=-
+ARGS=
+CMDS='
+e asm.arch=arm
+e asm.bits=32
+wa add r2, r2, r1
+sn
+wa nop
+sn
+wa bx r2
+sn
+wa blx r5
+sn
+?v $$
+pi 4 @0
+'
+EXPECT='0x10
+add r2, r2, r1
+nop
+bx r2
+blx r5
+'
+run_test

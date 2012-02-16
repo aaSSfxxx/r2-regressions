@@ -15,6 +15,19 @@ EXPECT='HelloWorld
 '
 run_test
 
+# passing 2 arguments
+NAME='.(msg x y,?e $0 $1)'
+BROKEN=1
+FILE=-
+ARGS=
+CMDS='
+"(msg x y,?e $0 $1)"
+.(msg Hello World)
+'
+EXPECT='Hello World
+'
+run_test
+
 # whitespace
 NAME='.(msg "foo bar")'
 BROKEN=1
@@ -36,19 +49,6 @@ ARGS=
 CMDS='
 "(msg x,?e $0)"
 .(msg Hello\ World)
-'
-EXPECT='Hello World
-'
-run_test
-
-# passing 2 arguments
-NAME='.(msg x y,?e $0 $1)'
-BROKEN=1
-FILE=-
-ARGS=
-CMDS='
-"(msg x y,?e $0 $1)"
-.(msg Hello World)
 '
 EXPECT='Hello World
 '

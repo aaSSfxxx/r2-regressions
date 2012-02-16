@@ -7,6 +7,7 @@
 ## ">" - redirection
 
 # Test basic redirection.
+NAME="pb>x;!wc -c x"
 FILE=malloc://1024
 ARGS=
 CMDS='

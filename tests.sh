@@ -139,14 +139,14 @@ run_test() {
         fi
 
     elif [ ${OUT_CODE} -ne 0 ]; then
-        test_failed "unexpected outcome"
+        test_failed "out"
         if [ -n "${VERBOSE}" ]; then
             diff -u "${TMP_EXP}" "${TMP_OUT}"
             echo
         fi
 
     elif [ ${ERR_CODE} -ne 0 ]; then
-        test_failed "unexpected errcome"
+        test_failed "err"
         if [ -n "${VERBOSE}" ]; then
             diff -u "${TMP_EXR}" "${TMP_ERR}"
             echo
