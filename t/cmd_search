@@ -53,3 +53,18 @@ EXPECT='hit0_0
 EXPECT_ERR='hits: 1  hit0_0 .. hit0_0
 '
 run_test
+
+BROKEN=1
+NAME='/x (va)'
+FILE=../s/x86-simple
+ARGS=
+CMDS='
+/x 5b
+pi 1 @ hit0_0
+'
+EXPECT='hit0_0
+pop ebx
+'
+EXPECT_ERR='hits: 1  hit0_0 .. hit0_0
+'
+run_test
