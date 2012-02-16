@@ -1,0 +1,63 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
+
+. ../tests.sh
+
+NAME='3p8'
+FILE=-
+ARGS=
+CMDS='
+3p8 1
+?e hi
+'
+EXPECT='00
+00
+00
+hi
+'
+run_test
+
+NAME='3p8;?e hi'
+FILE=-
+ARGS=
+CMDS='
+3p8 1;?e hi
+'
+EXPECT='00
+00
+00
+hi
+'
+run_test
+
+NAME='3p8&&?e hi'
+FILE=-
+ARGS=
+CMDS='
+3p8 1&&?e hi
+'
+EXPECT='00
+00
+00
+hi
+'
+run_test
+
+NAME='3"p8&&?e hi"'
+FILE=-
+ARGS=
+CMDS='
+2"p8 1&&?e hi"
+'
+EXPECT='00
+00
+00
+hi
+00
+00
+00
+hi
+'
+run_test
+

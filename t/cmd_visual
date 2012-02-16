@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
+
+. ../tests.sh
+
+## "i" - get info about opened file
+
+NAME='Vc+cq'
+BROKEN=1
+FILE=-
+ARGS=
+CMDS='
+Vc+cq
+p8 1
+'
+EXPECT='01
+'
+run_test

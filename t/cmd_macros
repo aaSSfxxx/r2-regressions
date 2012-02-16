@@ -1,0 +1,69 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
+
+. ../tests.sh
+
+NAME='(msg x,?e $0)'
+FILE=-
+ARGS=
+CMDS='
+"(msg x,?e $0)"
+.(msg HelloWorld)
+'
+EXPECT='HelloWorld
+'
+run_test
+
+# whitespace
+NAME='.(msg "foo bar")'
+BROKEN=1
+FILE=-
+ARGS=
+CMDS='
+"(msg x,?e $0)"
+.(msg "Hello World")
+'
+EXPECT='Hello World
+'
+run_test
+
+# whitespace
+NAME='.(msg foo\ bar)'
+BROKEN=1
+FILE=-
+ARGS=
+CMDS='
+"(msg x,?e $0)"
+.(msg Hello\ World)
+'
+EXPECT='Hello World
+'
+run_test
+
+# passing 2 arguments
+NAME='.(msg x y,?e $0 $1)'
+BROKEN=1
+FILE=-
+ARGS=
+CMDS='
+"(msg x y,?e $0 $1)"
+.(msg Hello World)
+'
+EXPECT='Hello World
+'
+run_test
+
+# count macros
+NAME='(*~?'
+BROKEN=1
+FILE=-
+ARGS=
+CMDS='
+(foo,bar)
+(bar,cow)
+(*~?
+'
+EXPECT='2
+'
+run_test
