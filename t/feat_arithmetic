@@ -19,3 +19,21 @@ EXPECT='0x40
 0x8
 '
 run_test
+
+BROKEN=1
+NAME='sum'
+FILE=-
+ARGS=
+CMDS='
+f a@3
+?v a+3
+?v a +3
+?v a+ 3
+?v 3 + 3
+'
+EXPECT='0x6
+0x6
+0x6
+0x6
+'
+run_test
