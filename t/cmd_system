@@ -18,7 +18,7 @@ yeah
 '
 run_test
 
-NAME='!|'
+NAME='!| grep'
 FILE=-
 ARGS=
 CMDS='
@@ -28,7 +28,7 @@ EXPECT=''
 run_test
 
 BROKEN=1
-NAME='!|'
+NAME='!| sed'
 FILE=-
 ARGS=
 CMDS='

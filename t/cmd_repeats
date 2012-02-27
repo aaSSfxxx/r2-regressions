@@ -2,6 +2,9 @@
 
 # GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
 
+# NOTE: && and ; and " are problematic with repeaters. must review
+#       should we remove &&?
+
 . ../tests.sh
 
 NAME='3p8'
@@ -46,21 +49,65 @@ hi
 '
 run_test
 
-BROKEN=1
-NAME='3"p8&&?e hi"'
+BROKEN=
+NAME='3p8;?e hi'
 FILE=-
 ARGS=
 CMDS='
-2"p8 1&&?e hi"
+2p8 1;?e hi
 '
 EXPECT='00
-00
-00
 hi
-00
-00
 00
 hi
 '
 run_test
 
+
+BROKEN=1
+NAME='3p8 1 && 2p8'
+FILE=-
+ARGS=
+CMDS='
+b 4
+wx 0000ffff
+3p8 1 && 2p8 2
+3p8 1
+'
+EXPECT='00
+0000
+0000
+00
+0000
+0000
+00
+0000
+0000
+'
+run_test
+
+BROKEN=
+NAME='3p8 1 ; 2p8'
+FILE=-
+ARGS=
+CMDS='
+b 4
+wx 0000ffff
+3p8 1 ; 2p8 2
+?e ---;3p8 1
+'
+EXPECT='00
+0000
+0000
+00
+0000
+0000
+00
+0000
+0000
+---
+00
+00
+00
+'
+run_test

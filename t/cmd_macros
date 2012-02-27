@@ -17,7 +17,7 @@ run_test
 
 # passing 2 arguments
 NAME='.(msg x y,?e $0 $1)'
-BROKEN=1
+BROKEN=
 FILE=-
 ARGS=
 CMDS='
@@ -56,7 +56,7 @@ run_test
 
 # count macros
 NAME='(*~?'
-BROKEN=1
+BROKEN=
 FILE=-
 ARGS=
 CMDS='
