@@ -174,6 +174,7 @@ test_reset() {
     CMDS=
     EXPECT=
     EXPECT_ERR=
+    IGNORE_ERR=0
     FILTER=
     EXITCODE=
     BROKEN=
