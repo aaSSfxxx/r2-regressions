@@ -28,8 +28,19 @@ CMDS='
 # Other stuff is also ignored: `..` ~ ..
 
 # But inside a command line only the commands after the # are ignored.
-?v $$ ; # this is ignored ; ?v $$
+?v $$ # this must beignored ; ?v $$
 '
 EXPECT='0x0
+'
+run_test
+
+NAME='w foo#bar'
+FILE=malloc://1024
+ARGS=
+CMDS='
+w foo#bar
+pz
+'
+EXPECT='foo#bar
 '
 run_test

@@ -117,8 +117,12 @@ run_test() {
     # Check if the output matched.
     diff "${TMP_OUT}" "${TMP_EXP}" >/dev/null
     OUT_CODE=$?
-    diff "${TMP_ERR}" "${TMP_EXR}" >/dev/null
-    ERR_CODE=$?
+    if [ "${IGNORE_ERR}" = 1 ]; then
+        ERR_CODE=0
+    else
+        diff "${TMP_ERR}" "${TMP_EXR}" >/dev/null
+        ERR_CODE=$?
+    fi
 
     if [ ${CODE} -eq 47 ]; then
         test_failed "valgrind error"
@@ -193,9 +197,9 @@ test_success() {
 
 test_failed() {
     if [ -z "${BROKEN}" ]; then
-        print_failed "FAIL ($1)"
+        print_failed "FAIL"
     else
-        print_failed "BROKEN ($1)"
+        print_failed "BROKEN"
     fi
 
     if [ -n "${R2_SOURCED}" ]; then

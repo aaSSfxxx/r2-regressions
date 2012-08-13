@@ -21,7 +21,7 @@ hi
 '
 run_test
 
-BROKEN=1
+BROKEN=
 NAME='3p8;?e hi'
 FILE=-
 ARGS=
@@ -35,7 +35,9 @@ hi
 '
 run_test
 
-BROKEN=1
+# This && syntax is deprecated
+if [ 1 = 0 ]; then
+BROKEN=
 NAME='3p8&&?e hi'
 FILE=-
 ARGS=
@@ -48,64 +50,37 @@ EXPECT='00
 hi
 '
 run_test
+fi
 
 BROKEN=
-NAME='3p8;?e hi'
+NAME='2p8 1;?e hi'
 FILE=-
 ARGS=
 CMDS='
 2p8 1;?e hi
 '
 EXPECT='00
-hi
 00
 hi
 '
 run_test
 
-
-BROKEN=1
-NAME='3p8 1 && 2p8'
-FILE=-
-ARGS=
-CMDS='
-b 4
-wx 0000ffff
-3p8 1 && 2p8 2
-3p8 1
-'
-EXPECT='00
-0000
-0000
-00
-0000
-0000
-00
-0000
-0000
-'
-run_test
 
 BROKEN=
-NAME='3p8 1 ; 2p8'
+NAME='3p8 1 && 2p8 4'
 FILE=-
 ARGS=
 CMDS='
 b 4
 wx 0000ffff
 3p8 1 ; 2p8 2
-?e ---;3p8 1
+3p8 1
 '
 EXPECT='00
-0000
-0000
+00
 00
 0000
 0000
-00
-0000
-0000
----
 00
 00
 00

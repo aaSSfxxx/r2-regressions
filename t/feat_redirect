@@ -19,10 +19,9 @@ pb 12800 > dump
 !wc -c dump|awk "{print \$1}"
 !rm -f dump
 '
-EXPECT=
-EXPECT_ERR='dump created
-81
-dump created
+EXPECT='81
 102401
 '
+
+EXPECT_ERR=''
 run_test

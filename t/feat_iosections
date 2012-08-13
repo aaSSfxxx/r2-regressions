@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
+
+. ../tests.sh
+
+
+NAME='elf-io'
+FILE=../s/x86-simple
+ARGS=
+CMDS='
+p8 10 @ 0x8048065
+'
+EXPECT='5bb801000000bb2a0000
+'
+EXPECT_ERR=''
+run_test
