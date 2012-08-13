@@ -30,7 +30,7 @@ run_test
 
 # whitespace
 NAME='.(msg "foo bar")'
-BROKEN=1
+BROKEN=
 FILE=-
 ARGS=
 CMDS='
@@ -43,7 +43,7 @@ run_test
 
 # whitespace
 NAME='.(msg foo\ bar)'
-BROKEN=1
+BROKEN=
 FILE=-
 ARGS=
 CMDS='

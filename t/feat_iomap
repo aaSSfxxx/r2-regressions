@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2012  pancake
+
+. ../tests.sh
+
+## grep
+
+# Basic grep.
+NAME='o 100'
+FILE=malloc://100
+ARGS=
+CMDS='
+s 0
+b 100
+o malloc://100 0x80000
+wox 0x10 @ 0
+wox 0x20 @ 0x80000
+b 20
+p8 @ 0
+p8 @ 90
+p8 @ 0x400
+p8 @0x80000
+'
+EXPECT='1010101010101010101010101010101010101010
+10101010101010101010ffffffffffffffffffff
+ffffffffffffffffffffffffffffffffffffffff
+2020202020202020202020202020202020202020
+'
+run_test

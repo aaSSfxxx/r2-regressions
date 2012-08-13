@@ -20,7 +20,7 @@ EXPECT='0x40
 '
 run_test
 
-BROKEN=1
+BROKEN=
 NAME='sum'
 FILE=-
 ARGS=
