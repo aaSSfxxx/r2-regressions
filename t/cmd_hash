@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2012  pancake
+
+. ../tests.sh
+
+
+NAME='#md5, #sha1'
+FILE=malloc://100
+ARGS=
+CMDS='
+#md5 64
+#md5 99
+w hello world
+#md5 11
+#md5 @:11
+#sha1 11
+#crc32
+#pcprint
+'
+EXPECT='3b5d3c7d207e37dceeedd301e35e2e58
+ef9e938a0d9e3d95f794b4a7f98dcb70
+5eb63bbbe01eeed093cb22bb8f5acdc3
+5eb63bbbe01eeed093cb22bb8f5acdc3
+2aae6c35c94fcfb415dbe95f408b9ce91ee846ed
+21da151a
+17
+'
+run_test
