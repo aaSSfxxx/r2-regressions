@@ -2,7 +2,7 @@
 
 # GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
 
-. ../tests.sh
+[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
 
 NAME='af x86-32'
 FILE=malloc://1024

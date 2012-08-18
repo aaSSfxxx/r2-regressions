@@ -2,8 +2,7 @@
 
 # GPL 3+ - Copyright (C) 2012  pancake
 
-. ../tests.sh
-
+[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
 
 NAME='#md5, #sha1'
 FILE=malloc://100

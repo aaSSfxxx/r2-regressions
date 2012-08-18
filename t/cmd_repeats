@@ -5,7 +5,7 @@
 # NOTE: && and ; and " are problematic with repeaters. must review
 #       should we remove &&?
 
-. ../tests.sh
+[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
 
 NAME='3p8'
 FILE=-
