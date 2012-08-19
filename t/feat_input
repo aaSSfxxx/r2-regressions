@@ -6,7 +6,7 @@
 
 ## "Test suite test".
 
-NAME='?e \n'
+NAME='newline ?e \n'
 FILE=malloc://1024
 ARGS=
 CMDS='
@@ -15,7 +15,7 @@ CMDS='
 '
 EXPECT='\n
 '
-run_test
+run_test newline
 
 ## Basic input tests.
 

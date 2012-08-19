@@ -17,10 +17,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+GREP="$1"
 
 run_test() {
     if [ -z "${R2}" ]; then
         R2=$(which radare2)
+    fi
+
+    if [ -n "${GREP}" ]; then
+        if [ -z "`echo \"${NAME}\" | grep \"${GREP}\"`" ]; then
+	    return
+        fi
     fi
 
     # Set by run_tests.sh if all tests are run - otherwise get it from test
@@ -73,10 +80,10 @@ run_test() {
     printf "%s\n" "${CMDS}" > ${TMP_RAD}
     printf "%s" "${EXPECT}" > ${TMP_EXP}
     printf "%s" "${EXPECT_ERR}" > ${TMP_EXR}
-    if [ -n "${VERBOSE}" ]; then
-        echo
-        echo "Command: ${R2CMD}"
-    fi
+    #if [ -n "${VERBOSE}" ]; then
+        #echo
+        #echo "Command: ${R2CMD}"
+    #fi
     eval "${R2CMD}"
     CODE=$?
 
