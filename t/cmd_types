@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
+
+[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
+
+NAME='td'
+FILE=-
+CMDS='
+"td struct a{int a;int b;};"
+t~?
+'
+EXPECT='1
+'
+run_test
