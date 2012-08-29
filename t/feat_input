@@ -39,7 +39,7 @@ FILE=malloc://1024
 ARGS=
 CMDS='
 w foo#bar
-pz
+psz
 '
 EXPECT='foo#bar
 '
@@ -50,7 +50,7 @@ FILE=malloc://1024
 ARGS=
 CMDS='
 "w fuck;you@23"
-pz
+psz
 '
 EXPECT='fuck;you@23
 '
@@ -61,7 +61,7 @@ FILE=malloc://1024
 ARGS=
 CMDS='
 "w fuck;you@23"@0x10
-pz@0x10
+psz@0x10
 '
 EXPECT='fuck;you@23
 '

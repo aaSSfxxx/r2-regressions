@@ -37,7 +37,7 @@ wx 010203
 i~^size[1]
 w hello world
 i~^size[1]
-pz
+psz
 '
 EXPECT='0x0
 0x3
