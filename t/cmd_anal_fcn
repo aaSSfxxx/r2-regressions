@@ -8,6 +8,7 @@ NAME='af x86-32'
 FILE=malloc://1024
 ARGS=
 CMDS='
+e anal.hasnext=0
 e asm.arch=x86
 e asm.bits=32
 wx 6a00 4889e5 c3 
@@ -24,6 +25,7 @@ FILE=malloc://1024
 BROKEN=
 ARGS=
 CMDS='
+e anal.hasnext=0
 e asm.arch=x86
 e asm.bits=32
 wx 6a00 4889e5 ff25f8120000 ff25f8120000ffe0
