@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2012  pancake
+
+[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
+
+NAME='wx e9010f;?v $l'
+FILE=-
+ARGS=
+CMDS='
+wx e9010f
+e asm.arch=x86
+e asm.bits=16
+?vi $l
+pi 1
+ao 3~size[1]
+'
+EXPECT='3
+3
+jmp word 0xf04
+'
+run_test
