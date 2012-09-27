@@ -16,7 +16,7 @@ pi 1
 ao 3~size[1]
 '
 EXPECT='3
-3
 jmp word 0xf04
+3
 '
 run_test
