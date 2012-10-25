@@ -62,7 +62,7 @@ EXPECT='000000
 '
 run_test
 
-BROKEN=1
+BROKEN=
 NAME='p8 `!echo 3`'
 FILE=-
 ARGS=

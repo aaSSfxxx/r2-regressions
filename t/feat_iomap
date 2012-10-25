@@ -29,3 +29,13 @@ ffffffffffffffffffffffffffffffffffffffff
 2020202020202020202020202020202020202020
 '
 run_test
+
+NAME='om 0x100;x@0xff'
+FILE=-
+CMDS='om `o~[1]` 0x100
+w pop
+p8 4 @0xff
+'
+EXPECT='00706f70
+'
+run_test
