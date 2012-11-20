@@ -20,3 +20,30 @@ jmp word 0xf04
 3
 '
 run_test
+
+NAME='dis-16/32/64'
+FILE=-
+ARGS=
+CMDS='
+wx e99300 e869390000 e828350000
+e asm.segoff=1
+e asm.bits=16
+pi 1
+s+3
+e asm.segoff=0
+e asm.bits=32
+pi 1
+s+5
+e asm.bits=64
+pi 1
+'
+EXPECT='jmp word 0x96
+call dword 0x3971
+call dword 0x3535
+'
+run_test
+
+# TODO test disassembler with higher offsets
+#rasm2 -o 0xfffaa -d e99300 -b16
+#rasm2 -o 0xb77c8192 -d 0e869390000 -b32
+#rasm2 -o 0x7629523a55e3 -d e828350000 -b64
