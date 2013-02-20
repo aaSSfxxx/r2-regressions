@@ -1,6 +1,6 @@
 #!/do/not/execute
 
-# Copyright (C) 2011       pancake<nopcode.org>
+# Copyright (C) 2011-2013  pancake<nopcode.org>
 # Copyright (C) 2011-2012  Edd Barrett <vext01@gmail.com>
 # Copyright (C) 2012       Simon Ruderich <simon@ruderich.org>
 #
@@ -18,6 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 GREP="$1"
+cd `dirname $0`
 
 run_test() {
     if [ -z "${R2}" ]; then
@@ -74,7 +75,10 @@ run_test() {
     if [ -n "${VALGRIND}" ]; then
         R2CMD="valgrind --error-exitcode=47 --log-file=${TMP_VAL}"
     fi
-    R2CMD="echo q | ${R2CMD} ${R2ARGS}"
+    R2CMD="${R2CMD} ${R2ARGS}"
+    if [ -n "${VERBOSE}" ]; then
+        echo $R2CMD
+    fi
 
     # Put expected outcome and program to run in files and run the test.
     printf "%s\n" "${CMDS}" > ${TMP_RAD}

@@ -37,6 +37,7 @@ Virtual addresses not enabled!
 "
 EXPECT='0x0
 0x0
+0x0
 
 0xrandomnr
 

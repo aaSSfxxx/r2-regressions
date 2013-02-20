@@ -16,7 +16,8 @@ CMDS='
 w test
 w test@333
 w test@666
-/ test @0:1024
+b 1024
+/ test
 '
 EXPECT='0x00000000 hit0_0 "test"
 0x0000014d hit0_1 "test"

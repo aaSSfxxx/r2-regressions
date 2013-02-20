@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# GPL 3+ - Copyright (C) 2012  pancake
+# GPL 3+ - Copyright (C) 2012-2013  pancake
 
 [ -e tests.sh ] && . ./tests.sh || . ../tests.sh
 
@@ -8,7 +8,7 @@
 
 # Basic grep.
 NAME='o 100'
-FILE=malloc://100
+FILE=malloc://1024
 ARGS=
 CMDS='
 s 0
@@ -16,7 +16,7 @@ b 100
 wox 0x10 @ 0
 o malloc://0x1000 0x80000
 b 0x1000
-wox 0x20 @ 0x80000
+wow 0x20 @ 0x80000
 b 20
 p8 @ 0
 p8 @ 90

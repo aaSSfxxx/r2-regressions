@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
+# GPL 3+ - Copyright (C) 2011-2013  pancake, Edd Barrett, Simon Ruderich
 
 [ -e tests.sh ] && . ./tests.sh || . ../tests.sh
 
@@ -43,9 +43,10 @@ FILE=malloc://8
 ARGS='-w'
 CMDS='
 wx 0001020304050607
-woa 01 @ 0:8
+woa 01 @ 0j8
+x
 p8 8
-woa 01@0 :8
+woa 01 @ 0!8
 p8 8
 '
 EXPECT='0102030405060708
