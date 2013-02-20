@@ -53,7 +53,7 @@ Reporting Radare2 Bugs
 Please to not post Radare2 bugs on the r2-regressions github tracker. Instead
 use the official r2 tracker:
 
-http://radare.org/y/?p=bugtracker
+https://github.com/radare/radare2/issues?state=open
 
 Writing test cases
 ------------------
