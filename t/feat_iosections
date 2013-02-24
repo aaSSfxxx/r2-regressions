@@ -14,3 +14,22 @@ EXPECT='5bb801000000bb2a0000
 '
 EXPECT_ERR=''
 run_test
+
+NAME='io-sections-glue'
+FILE='malloc://4'
+ARGS=
+CMDS='
+e io.va=true
+wx aabbccdd
+p8 4
+S 1 0x1000 1 1 section_bb
+S 3 0x1001 1 1 section_dd
+p8 4 @ 0x1000
+p8 4 @ 0x1001
+'
+EXPECT='aabbccdd
+bbddffff
+ddffffff
+'
+EXPECT_ERR=''
+run_test
