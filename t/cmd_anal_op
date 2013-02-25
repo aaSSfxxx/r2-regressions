@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2013  pancake
+
+[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
+
+NAME='af x86-32'
+FILE=malloc://16
+BROKEN=1
+ARGS=
+CMDS='
+wx 9090
+ao 1~?
+p8 1
+ao 1~?
+'
+EXPECT='9
+90
+9
+'
+run_test
+

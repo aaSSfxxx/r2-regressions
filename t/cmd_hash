@@ -13,7 +13,7 @@ b 100
 #md5 99
 w hello world
 #md5 11
-#md5 @:11
+#md5 @!11
 #sha1 11
 #crc32
 #pcprint

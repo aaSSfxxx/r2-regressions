@@ -13,7 +13,7 @@ e asm.arch=x86
 e asm.bits=16
 ?vi $l
 pi 1
-ao 3~size[1]
+ao 1~size[1]
 '
 EXPECT='3
 jmp word 0xf04
