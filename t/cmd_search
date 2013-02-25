@@ -16,10 +16,13 @@ CMDS='
 w test
 w test@333
 w test@666
-b 1024
+?e
+e search.in=block
+b 0x400
 / test
 '
-EXPECT='0x00000000 hit0_0 "test"
+EXPECT='
+0x00000000 hit0_0 "test"
 0x0000014d hit0_1 "test"
 0x0000029a hit0_2 "test"
 '
