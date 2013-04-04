@@ -77,9 +77,9 @@ cmp dword [ecx], 0x0
 jnz 0x21
 dec eax
 add ecx, 0x8
-call dword 0xf8c
+call 0xf8c
 mov edi, eax
-call dword 0x3956
+call 0x3956
 ret
 '
 run_test
