@@ -84,6 +84,7 @@ iz*
 NAME='i (file x86)'
 FILE=../s/x86-simple
 ARGS=
+BROKEN=1
 CMDS="$cmds_info"
 EXPECT='Basic information.
 type	EXEC (Executable file)
@@ -267,6 +268,7 @@ FILTER='sed "s/^fd	[0-9][0-9]*/fd	42/;
 run_test
 
 NAME='i (file x64)'
+BROKEN=1
 FILE=../s/x64-simple
 ARGS=
 CMDS="$cmds_info"

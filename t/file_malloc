@@ -7,7 +7,7 @@
 ## malloc:// "file"
 
 # Normal request.
-NAME='malloc://'
+NAME='malloc://1024'
 FILE=malloc://1024
 ARGS=
 CMDS='
@@ -31,7 +31,7 @@ FILTER='sed "s/^fd	[0-9][0-9]*/fd	42/"'
 run_test
 
 # Small request.
-NAME='malloc://'
+NAME='malloc://1'
 FILE=malloc://1
 ARGS=
 CMDS='

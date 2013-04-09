@@ -69,7 +69,7 @@ run_test
 # Basic cache usage with an empty file. Cache write, cache reset, cache
 # commit. Also tests if undo at end of file works.
 touch empty.tmp
-NAME='basic usage (empty file)'
+NAME='empty file'
 FILE=empty.tmp
 ARGS='-w'
 CMDS='

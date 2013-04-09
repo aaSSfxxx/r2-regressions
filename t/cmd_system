@@ -9,12 +9,16 @@
 NAME='!'
 FILE=-
 ARGS=
+BROKEN=1
 CMDS='
+?e fuck
+?e yeah
 !echo fuck
 !echo yeah
 '
 EXPECT='fuck
 yeah
+fuck
 '
 run_test
 
