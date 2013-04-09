@@ -8,6 +8,8 @@ NAME='af x86-32'
 FILE=malloc://16
 ARGS=
 CMDS='
+e asm.arch=x86
+e asm.bits=32
 wx 9090
 ao 1~?
 p8 1
@@ -16,6 +18,19 @@ ao 1~?
 EXPECT='9
 90
 9
+'
+run_test
+
+NAME='af x86-64'
+FILE=malloc://16
+ARGS=
+CMDS='
+e asm.arch=x86
+e asm.bits=64
+wx 662e0f1f840000000000
+ao 1~size[1]
+'
+EXPECT='10
 '
 run_test
 

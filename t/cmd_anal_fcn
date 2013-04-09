@@ -28,11 +28,11 @@ CMDS='
 e anal.hasnext=0
 e asm.arch=x86
 e asm.bits=32
-wx 6a00 4889e5 ff25f8120000 ff25f8120000ffe0
+wx 6a00 4889e5 ff25f8120000 ff25f8120000ffe0c3
 af
 afl~[1]
 '
-EXPECT='19
+EXPECT='20
 '
 IGNORE_ERR=1
 run_test
@@ -77,9 +77,9 @@ cmp dword [ecx], 0x0
 jnz 0x21
 dec eax
 add ecx, 0x8
-call 0xf8c
+call dword 0xf8c
 mov edi, eax
-call 0x3956
+call dword 0x3956
 ret
 '
 run_test
