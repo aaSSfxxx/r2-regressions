@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
+# GPL 3+ - Copyright (C) 2011-2013  pancake, Edd Barrett, Simon Ruderich
 
 [ -e tests.sh ] && . ./tests.sh || . ../tests.sh
 
@@ -36,5 +36,27 @@ ARGS=
 CMDS='?v `i~size[1]`-$s;?? ?e works'
 EXPECT='0x0
 works
+'
+run_test
+
+NAME='?e~[0]'
+FILE=malloc://1024
+ARGS=
+BROKEN=1
+CMDS='?e 0x3~[0];?e 0x999~[0]'
+EXPECT='0x3
+0
+'
+run_test
+
+NAME='?e~[0]'
+BROKEN=
+FILE=malloc://1024
+ARGS=
+CMDS='?e hello world~[0]
+?e hello world~[1]
+'
+EXPECT='hello
+world
 '
 run_test
