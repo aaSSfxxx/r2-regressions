@@ -1,6 +1,6 @@
 #!/bin/sh
-
-# Copyright (C) 2011       pancake<nopcode.org>
+#
+# Copyright (C) 2011-2013  pancake <pancake@nopcode.org>
 # Copyright (C) 2011-2012  Edd Barrett <vext01@gmail.com>
 # Copyright (C) 2012       Simon Ruderich <simon@ruderich.org>
 #
@@ -42,10 +42,24 @@ trap control_c 2
 . ./tests.sh
 
 # Run all tests.
-cd t || die "t/ doesn't exist"
+T="t"; [ -n "$1" ] && T="$1"
+[ -f "$T" -a -x "$T" ] && exec $T
+cd $T || die "t/ doesn't exist"
 for file in *; do
-    TEST_NAME=$(echo "${file}" | sed 's/.sh$//')
-    . "./${file}"
+   if [ -d "$file" ]; then
+      cd $file
+      for file2 in *; do
+         TEST_NAME=$(echo "${file2}" | sed 's/.sh$//')
+	 NAME=`basename $file2`
+         TEST_NAME=$file
+         . ./${file2}
+      done
+      cd ..
+   else
+      NAME=`basename $file`
+      TEST_NAME=$NAME
+      . ./${file}
+   fi
 done
 
 # Print report.

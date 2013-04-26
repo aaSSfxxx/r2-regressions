@@ -1,0 +1,21 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+CMDS='
+e asm.arch=java
+wa bipush 32
+s+$l
+wa nop
+s+$l
+wa iadd
+s+$l
+?v $$
+pi 3 @0
+'
+EXPECT='0x4
+bipush 32
+nop
+iadd
+'
+
+run_test

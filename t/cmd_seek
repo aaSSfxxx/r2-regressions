@@ -7,9 +7,9 @@
 ## "s" - seek to address
 
 # Seeking in hex, decimal and octal in an empty file.
-touch empty.tmp
+touch .empty.tmp
 NAME='s (empty file)'
-FILE=empty.tmp
+FILE=.empty.tmp
 ARGS=
 CMDS='
 s 0x666
@@ -32,7 +32,7 @@ EXPECT='0x666
 0x5
 '
 run_test
-rm -f empty.tmp
+rm -f .empty.tmp
 
 # Seeking in hex, decimal and octal.
 NAME='s (malloc)'

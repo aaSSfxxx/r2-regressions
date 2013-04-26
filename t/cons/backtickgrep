@@ -1,0 +1,10 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+CMDS='?v `i~size[1]`-$s;?? ?e works'
+EXPECT='0x0
+works
+'
+
+run_test
+

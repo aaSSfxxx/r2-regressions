@@ -18,12 +18,23 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 GREP="$1"
-cd `dirname $0`
+GREP=""
+cd `dirname $0` 2>/dev/null
+
+printdiff() {
+    if [ -n "${VERBOSE}" ]; then
+        echo
+        print_label Command:
+        echo "${R2CMD}"
+        print_label Script:
+        cat ${TMP_RAD}
+    fi
+}
 
 run_test() {
-    if [ -z "${R2}" ]; then
-        R2=$(which radare2)
-    fi
+    # TODO: remove which dependency
+    [ -z "${R2}" ] && R2=$(which radare2)
+    PD="/tmp/r2-regressions/" # XXX
 
     if [ -n "${GREP}" ]; then
         if [ -z "`echo \"${NAME}\" | grep \"${GREP}\"`" ]; then
@@ -34,13 +45,19 @@ run_test() {
     # Set by run_tests.sh if all tests are run - otherwise get it from test
     # name.
     if [ -z "${TEST_NAME}" ]; then
-        TEST_NAME=$(basename "$0" | sed 's/\.sh$//')
+       TEST_NAME=$(basename "$0" | sed 's/\.sh$//')
     fi
 
-    NAME_TMP="${TEST_NAME}"
-    [ -n "${NAME}" ]     && NAME_TMP="${NAME_TMP}: ${NAME}"
+    NAME_TMP="${TEST_NAME}" #`basename $NAME` #"${TEST_NAME}"
+    if [ -n "${NAME}" ]; then
+        if [ "$NAME_TMP" = "$NAME" ]; then
+            NAME_TMP="${NAME_TMP}:"
+        else
+            NAME_TMP="${NAME_TMP}: ${NAME}"
+        fi
+    fi
     [ -n "${VALGRIND}" ] && NAME_TMP="${NAME_TMP} (valgrind)"
-    printf "%-50s" "${NAME_TMP}"
+    printf "%-40s" "${NAME_TMP}"
 
     # Check required variables.
     if [ -z "${FILE}" ]; then
@@ -60,13 +77,13 @@ run_test() {
         VERBOSE=1
     fi
 
-    mkdir -p ../tmp
-    TMP_RAD=$(mktemp "../tmp/${TEST_NAME}-rad.XXXXXX")
-    TMP_OUT=$(mktemp "../tmp/${TEST_NAME}-out.XXXXXX")
-    TMP_ERR=$(mktemp "../tmp/${TEST_NAME}-err.XXXXXX")
-    TMP_EXR=$(mktemp "../tmp/${TEST_NAME}-exr.XXXXXX") # expected error
-    TMP_VAL=$(mktemp "../tmp/${TEST_NAME}-val.XXXXXX")
-    TMP_EXP=$(mktemp "../tmp/${TEST_NAME}-exp.XXXXXX")
+    mkdir -p ${PD}
+    TMP_RAD=`mktemp "${PD}/${TEST_NAME}-rad.XXXXXX"`
+    TMP_OUT=`mktemp "${PD}/${TEST_NAME}-out.XXXXXX"`
+    TMP_ERR=`mktemp "${PD}/${TEST_NAME}-err.XXXXXX"`
+    TMP_EXR=`mktemp "${PD}/${TEST_NAME}-exr.XXXXXX"` # expected error
+    TMP_VAL=`mktemp "${PD}/${TEST_NAME}-val.XXXXXX"`
+    TMP_EXP=`mktemp "${PD}/${TEST_NAME}-exp.XXXXXX"`
 
     # No colors and no user configs.
     R2ARGS="${R2} -e scr.color=0 -N -q -i ${TMP_RAD} ${ARGS} ${FILE} > ${TMP_OUT} 2> ${TMP_ERR}"
@@ -76,18 +93,14 @@ run_test() {
         R2CMD="valgrind --error-exitcode=47 --log-file=${TMP_VAL}"
     fi
     R2CMD="${R2CMD} ${R2ARGS}"
-    if [ -n "${VERBOSE}" ]; then
-        echo $R2CMD
-    fi
+    #if [ -n "${VERBOSE}" ]; then
+        #echo #$R2CMD
+    #fi
 
     # Put expected outcome and program to run in files and run the test.
     printf "%s\n" "${CMDS}" > ${TMP_RAD}
     printf "%s" "${EXPECT}" > ${TMP_EXP}
     printf "%s" "${EXPECT_ERR}" > ${TMP_EXR}
-    #if [ -n "${VERBOSE}" ]; then
-        #echo
-        #echo "Command: ${R2CMD}"
-    #fi
     eval "${R2CMD}"
     CODE=$?
 
@@ -144,33 +157,34 @@ run_test() {
 
     elif [ -n "${EXITCODE}" ]; then
         test_failed "wrong exit code: ${EXITCODE}"
+        printdiff
 
     elif [ ${CODE} -ne 0 ]; then
         test_failed "radare2 crashed"
+        printdiff
         if [ -n "${VERBOSE}" ]; then
             cat "${TMP_OUT}"
             cat "${TMP_ERR}"
             echo
         fi
-
     elif [ ${OUT_CODE} -ne 0 ]; then
         test_failed "out"
+        printdiff
         if [ -n "${VERBOSE}" ]; then
+            print_label Diff:
             diff -u "${TMP_EXP}" "${TMP_OUT}"
             echo
         fi
-
     elif [ ${ERR_CODE} -ne 0 ]; then
         test_failed "err"
+        printdiff
         if [ -n "${VERBOSE}" ]; then
             diff -u "${TMP_EXR}" "${TMP_ERR}"
             echo
         fi
-
     else
         test_success
     fi
-
     rm -f "${TMP_RAD}" "${TMP_OUT}" "${TMP_ERR}" "${TMP_VAL}" \
           "${TMP_EXP}" "${TMP_EXR}"
 
@@ -179,8 +193,8 @@ run_test() {
 }
 
 test_reset() {
-    NAME=
-    FILE=
+    [ -z "$NAME" ] && NAME=$0
+    FILE="-"
     ARGS=
     CMDS=
     EXPECT=
@@ -190,6 +204,8 @@ test_reset() {
     EXITCODE=
     BROKEN=
 }
+
+test_reset
 
 test_success() {
     if [ -z "${BROKEN}" ]; then
@@ -233,4 +249,8 @@ print_failed() {
 
 print_fixed() {
     printf "%b" "\033[33m${*}\033[0m\n"
+}
+
+print_label() {
+    printf "\033[35m%s \033[0m" $@
 }

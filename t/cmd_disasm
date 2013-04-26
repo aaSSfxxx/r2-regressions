@@ -16,7 +16,7 @@ pi 1
 ao 1~size[1]
 '
 EXPECT='3
-jmp word 0xf04
+jmp 0xf04
 3
 '
 run_test
@@ -37,9 +37,9 @@ s+5
 e asm.bits=64
 pi 1
 '
-EXPECT='jmp word 0x96
-call dword 0x3971
-call dword 0x3535
+EXPECT='jmp 0x96
+call 0x3971
+call 0x3535
 '
 run_test
 

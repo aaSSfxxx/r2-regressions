@@ -68,9 +68,9 @@ run_test
 
 # Basic cache usage with an empty file. Cache write, cache reset, cache
 # commit. Also tests if undo at end of file works.
-touch empty.tmp
+touch .empty.tmp
 NAME='empty file'
-FILE=empty.tmp
+FILE=.empty.tmp
 ARGS='-w'
 CMDS='
 ?e
@@ -108,4 +108,4 @@ ffffffffffffffffffffffffffffff
 overwrite
 '
 run_test
-rm -f empty.tmp
+rm -f .empty.tmp

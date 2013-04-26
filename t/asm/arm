@@ -1,0 +1,25 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+CMDS='
+e asm.arch=arm
+e asm.bits=32
+wa add r2, r2, r1
+s+$l
+wa nop
+s+$l
+wa bx r2
+s+$l
+wa blx r5
+s+$l
+?v $$
+pi 4 @0
+'
+EXPECT='0x10
+add r2, r2, r1
+nop
+bx r2
+blx r5
+'
+
+run_test

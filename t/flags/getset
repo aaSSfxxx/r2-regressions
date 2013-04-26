@@ -1,14 +1,6 @@
 #!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
 
-# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
-
-[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
-
-## "f" - set flags
-
-NAME='f'
-FILE=malloc://1024
-ARGS=
 CMDS='
 # No args should not crash (bug report #56).
 f
@@ -27,4 +19,5 @@ EXPECT='0x0000000c 1 skutter
 0x00000000 12 rimmer
 0x00000000 1 cat
 '
+
 run_test
