@@ -45,10 +45,12 @@ trap control_c 2
 T="t"; [ -n "$1" ] && T="$1"
 [ -f "$T" -a -x "$T" ] && exec $T
 cd $T || die "t/ doesn't exist"
-for file in *; do
+for file in * ; do
+   [ "$file" = '*' ] && break
    if [ -d "$file" ]; then
       cd $file
       for file2 in *; do
+         [ "$file2" = '*' ] && break
          TEST_NAME=$(echo "${file2}" | sed 's/.sh$//')
 	 NAME=`basename $file2`
          TEST_NAME=$file
@@ -64,31 +66,35 @@ done
 
 # Print report.
 echo
-echo "RUN:     ${TESTS_RUN}"
-printf "SUCCESS: ";
+echo "=== Report ==="
+echo
+printf "      SUCCESS"
 if [ "${TESTS_SUCCESS}" -gt 0 ]; then
     print_success "$TESTS_SUCCESS"
 else
     print_failed "${TESTS_SUCCESS}"
 fi
-printf "FAILED:  ";
+printf "      FAILED"
 if [ "${TESTS_FAILED}" -gt 0 ]; then
     print_failed  "$TESTS_FAILED"
 else
-    echo 0
+    print_failed  0
 fi
-printf "BROKEN:  ";
+printf "      BROKEN"
 if [ "${TESTS_BROKEN}" -gt 0 ]; then
     print_failed  "$TESTS_BROKEN"
 else
-    echo 0
+    print_failed  0
 fi
-printf "FIXED:   ";
+printf "      FIXED"
 if [ "${TESTS_FIXED}" -gt 0 ]; then
     print_fixed   "${TESTS_FIXED}"
 else
-    echo 0
+    print_failed  0
 fi
+printf "      TOTAL\r"
+print_label "[${TESTS_RUN}]"
+echo
 
 # Proper exit code.
 if [ "${TESTS_RUN}" -eq "${TESTS_SUCCESS}" ]; then

@@ -51,13 +51,17 @@ run_test() {
     NAME_TMP="${TEST_NAME}" #`basename $NAME` #"${TEST_NAME}"
     if [ -n "${NAME}" ]; then
         if [ "$NAME_TMP" = "$NAME" ]; then
+		NAME_A="${NAME_TMP}"
+		NAME_B=""
             NAME_TMP="${NAME_TMP}:"
         else
+		NAME_A="${NAME_TMP}"
+		NAME_B="${NAME}"
             NAME_TMP="${NAME_TMP}: ${NAME}"
         fi
     fi
     [ -n "${VALGRIND}" ] && NAME_TMP="${NAME_TMP} (valgrind)"
-    printf "%-40s" "${NAME_TMP}"
+    printf "\033[33m[  ]  %s: \033[0m%-30s" "${NAME_A}" "${NAME_B}" #"${NAME_TMP}"
 
     # Check required variables.
     if [ -z "${FILE}" ]; then
@@ -209,9 +213,9 @@ test_reset
 
 test_success() {
     if [ -z "${BROKEN}" ]; then
-        print_success "OK "
+        print_success "OK"
     else
-        print_fixed "FIXED"
+        print_fixed "FX"
     fi
 
     if [ -n "${R2_SOURCED}" ]; then
@@ -225,9 +229,9 @@ test_success() {
 
 test_failed() {
     if [ -z "${BROKEN}" ]; then
-        print_failed "FAIL"
+        print_failed "XX"
     else
-        print_failed "BROKEN"
+        print_failed "BR"
     fi
 
     if [ -n "${R2_SOURCED}" ]; then
@@ -240,15 +244,15 @@ test_failed() {
 }
 
 print_success() {
-    printf "%b" "\033[32m${*}\033[0m\n"
+    printf "%b" "\r\033[32m[${*}]\033[0m\n"
 }
 
 print_failed() {
-    printf "%b" "\033[31m${*}\033[0m\n"
+    printf "%b" "\r\033[31m[${*}]\033[0m\n"
 }
 
 print_fixed() {
-    printf "%b" "\033[33m${*}\033[0m\n"
+    printf "%b" "\r\033[33m[${*}]\033[0m\n"
 }
 
 print_label() {
