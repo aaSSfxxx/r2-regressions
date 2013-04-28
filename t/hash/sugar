@@ -1,0 +1,14 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+CMDS='
+#md5@s:hello
+#md5 @ s:hello
+#md5@b:01020304
+'
+EXPECT='5d41402abc4b2a76b9719d911017c592
+5d41402abc4b2a76b9719d911017c592
+08d6c05a21512a79a1dfeb9d2a8f262f
+'
+
+run_test

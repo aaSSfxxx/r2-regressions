@@ -1,0 +1,24 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+CMDS='
+b 100
+#md5 64
+#md5 99
+w hello world
+#md5 11
+#md5 @!11
+#sha1 11
+#crc32
+#pcprint
+'
+EXPECT='3b5d3c7d207e37dceeedd301e35e2e58
+fa8715078d45101200a6e2bf7321aa04
+5eb63bbbe01eeed093cb22bb8f5acdc3
+5eb63bbbe01eeed093cb22bb8f5acdc3
+2aae6c35c94fcfb415dbe95f408b9ce91ee846ed
+afe4c6d0
+11
+'
+
+run_test
