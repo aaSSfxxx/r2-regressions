@@ -1,0 +1,23 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+FILE=malloc://1024
+CMDS='
+w test
+w test@333
+w test@666
+?e
+e search.in=block
+b 0x400
+/ test
+'
+EXPECT='
+0x00000000 hit0_0 "test"
+0x0000014d hit0_1 "test"
+0x0000029a hit0_2 "test"
+'
+EXPECT_ERR='Searching 4 bytes from 0x00000000 to 0x00000400: 74 65 73 74 
+hits: 3
+'
+
+run_test

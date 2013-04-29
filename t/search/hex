@@ -1,0 +1,14 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+FILE=malloc://1024
+CMDS='wx 01020304 @ 0x100
+/x 01020304
+?v hit0_0'
+EXPECT='0x00000100 hit0_0 010203040000000000000000
+0x100
+'
+EXPECT_ERR='hits: 1
+'
+
+run_test
