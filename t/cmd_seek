@@ -1,0 +1,18 @@
+#!/bin/sh
+# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
+[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
+
+# "!" - run commands (via system)
+
+NAME='!'
+FILE=-
+ARGS=
+BROKEN=1
+CMDS='
+s 0x7fffff8000b54000 ; ?v $$
+s 0x8fffff8000b54000 ; ?v $$
+'
+EXPECT='0x7fffff8000b54000
+0x8fffff8000b54000
+'
+run_test
