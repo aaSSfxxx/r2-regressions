@@ -23,7 +23,8 @@ for a in ${TESTS}; do
 		exit 1
 	fi
 done
-cd ..
+git clone .. radare2
+cd radare2
 echo "* Running bisect on ${TESTS}"
 REVS=$(git log|grep ^commit |awk '{print $2}')
 for a in ${REVS}; do
@@ -32,7 +33,7 @@ for a in ${REVS}; do
 	echo "* Building revision $a ..."
 	sleep 2
 	sys/install-rev.sh ${a} > build.$a.log 2>&1
-	cd r2-regressions
+	cd .. # r2-regressions
 	for b in ${TESTS}; do
 		R2_SOURCED=1 ./$b
 		if [ $? = 0 ]; then
@@ -42,6 +43,6 @@ for a in ${REVS}; do
 			echo "* Error on revision $a"
 		fi
 	done
-	cd ../..
+	cd radare2
 done
 exit 1
