@@ -42,10 +42,10 @@ run_test
 NAME='?e~[0]'
 FILE=malloc://1024
 ARGS=
-BROKEN=1
+BROKEN=
 CMDS='?e 0x3~[0];?e 0x999~[0]'
 EXPECT='0x3
-0
+0x999
 '
 run_test
 
