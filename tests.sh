@@ -194,6 +194,7 @@ run_test() {
 
     # Reset most variables in case the next test script doesn't set them.
     test_reset
+    return $OUT_CODE
 }
 
 test_reset() {
