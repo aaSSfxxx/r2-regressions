@@ -74,7 +74,7 @@ FILE=.empty.tmp
 ARGS='-w'
 CMDS='
 ?e
-b 0xf
+b 15
 p8
 w no-cache
 p8
@@ -94,7 +94,7 @@ wcr
 wci
 p8
 # File was correctly writen.
-!cat empty.tmp
+cat .empty.tmp
 ?e
 '
 EXPECT='

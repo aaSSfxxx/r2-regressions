@@ -7,7 +7,7 @@ BROKEN=1
 FILE=malloc://512
 ARGS=
 CMDS='
-e anal.hasnext=1
+e anal.hasnext=0
 e asm.arch=x86
 e asm.bits=64
 wx b8010000004839ca7f26b8ffffffff4839ca7c1c498b4838498b5138b8010000004839ca7f0ab8ffffffff4839ca7d025dc34883c7684883c6685dc3
@@ -33,6 +33,6 @@ afl~?
 afl~[1]
 '
 EXPECT='1
-56
+60
 '
 run_test
