@@ -117,17 +117,17 @@ run_test() {
     if [ -n "${FILTER}" ]; then
         # Filter stdout.
         FILTER_CMD="cat ${TMP_OUT} | ${FILTER} > ${TMP_OUT}.filter"
-        if [ -n "${VERBOSE}" ]; then
-            echo "Filter (stdout):  ${FILTER}"
-        fi
+        #if [ -n "${VERBOSE}" ]; then
+        #    echo "Filter (stdout):  ${FILTER}"
+        #fi
         eval "${FILTER_CMD}"
         mv "${TMP_OUT}.filter" "${TMP_OUT}"
 
         # Filter stderr.
         FILTER_CMD="cat ${TMP_ERR} | ${FILTER} > ${TMP_ERR}.filter"
-        if [ -n "${VERBOSE}" ]; then
-            echo "Filter (stderr):  ${FILTER}"
-        fi
+        #if [ -n "${VERBOSE}" ]; then
+        #    echo "Filter (stderr):  ${FILTER}"
+        #fi
         eval "${FILTER_CMD}"
         mv "${TMP_ERR}.filter" "${TMP_ERR}"
     fi
