@@ -51,4 +51,5 @@ var options = {
 	onAnimationComplete : null
 }
 
-new Chart(ctx).Line(data,options);
+//new Chart(ctx).Line(data,options);
+new Chart(ctx).Radar(data,options);

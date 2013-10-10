@@ -6,7 +6,8 @@ if [ -z "$1" ]; then
 	exit 1
 fi
 TESTS=$@
-UPTO=32
+SKIP=0
+UPTO=128
 if [ "${TESTS}" = "-a" ]; then
 	TESTS_ALL=1
 	TESTS=$(find t -type f| grep -v '/\.')
@@ -27,6 +28,17 @@ git clone .. radare2
 cd radare2
 echo "* Running bisect on ${TESTS}"
 REVS=$(git log|grep ^commit |awk '{print $2}')
+if [ ${SKIP} -gt 0 ]; then
+	REV=""
+	for a in ${REVS} ; do
+		if [ ${SKIP} -gt 0 ]; then
+			SKIP=$(($SKIP-1))
+		else
+			REV="$REV $a"
+		fi
+	done
+	REVS="${REV}"
+fi
 for a in ${REVS}; do
 	[ "${UPTO}" = 0 ] && break
 	UPTO=$(($UPTO-1))

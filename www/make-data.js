@@ -1,6 +1,6 @@
 var fs = require('fs')
 
-const input = "./stats.csv"
+const input = "../stats.csv"
 const output = "data.js"
 
 var data = {
@@ -43,18 +43,17 @@ fs.readFile (input, function (err,txt) {
 		process.exit(1);
 	}
 	var rows = (""+txt).split(/\n/);
-	data.labels = new Array();
-	for (var i = 0;i<4; i++)
-		data.datasets[i].data = new Array();
 	for (var i in rows) {
 		var cols = rows[i].split(/,/);
 		if (cols.length>4) {
-			data.labels.push (cols[0]);
+			var label = cols[0].split(/-/)[1];
+			data.labels.push (label);
 			data.datasets[0].data.push (cols[1]);
 			data.datasets[1].data.push (cols[2]);
 			data.datasets[2].data.push (cols[3]);
 			data.datasets[3].data.push (cols[4]);
 		}
 	}
-	fs.writeFileSync (output, "const data = "+JSON.stringify(data)+"\n");
+	fs.writeFileSync (output, "const data = "+
+		JSON.stringify (data)+"\n");
 });
