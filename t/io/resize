@@ -2,7 +2,7 @@
 
 # GPL 3+ - Copyright (C) 2012  pancake
 
-[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
+[ -e tests.sh ] && . ./tests.sh || . ../../tests.sh
 
 	T=`mktemp .resize.XXXXXX`
 	rm -f $T

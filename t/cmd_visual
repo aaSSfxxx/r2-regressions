@@ -11,6 +11,7 @@ BROKEN=1
 FILE=-
 ARGS=
 CMDS='
+e scr.interactive=true
 Vc+cq
 p8 1
 '

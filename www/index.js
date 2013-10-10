@@ -22,14 +22,14 @@ var data = {
 }
 */
 var options = {
-	scaleOverlay : false,
-	scaleOverride : false,
-	scaleSteps : null,
-	scaleStepWidth : null,
-	scaleStartValue : null,
+	scaleOverlay : true,
+	scaleOverride : true,
+	scaleSteps : 15,
+	scaleStepWidth : 1,
+	scaleStartValue : 0,
 	scaleLineColor : "rgba(0,0,0,.1)",
 	scaleLineWidth : 1,
-	scaleShowLabels : true,
+	scaleShowLabels : false,
 	scaleLabel : "<%=value%>",
 	scaleFontFamily : "'Arial'",
 	scaleFontSize : 12,
@@ -39,14 +39,14 @@ var options = {
 	scaleGridLineColor : "rgba(0,0,0,.05)",
 	scaleGridLineWidth : 1,	
 	bezierCurve : true,
-	pointDot : true,
+	pointDot : false,
 	pointDotRadius : 3,
 	pointDotStrokeWidth : 1,
 	datasetStroke : true,
 	datasetStrokeWidth : 2,
 	datasetFill : true,
 	animation : true,
-	animationSteps : 60,
+	animationSteps : 90,
 	animationEasing : "easeOutQuart",
 	onAnimationComplete : null
 }
