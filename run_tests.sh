@@ -41,6 +41,14 @@ trap control_c 2
 
 . ./tests.sh
 
+r2 > /dev/null
+if [ $? != 0 ]; then
+    echo "Cannot find r2"
+    exit 1
+fi
+
+
+R=$PWD
 # Run all tests.
 T="t"; [ -n "$1" ] && T="$1"
 [ -f "$T" -a -x "$T" ] && exec $T
@@ -70,21 +78,9 @@ echo "=== Report ==="
 echo
 printf "      SUCCESS"
 if [ "${TESTS_SUCCESS}" -gt 0 ]; then
-    print_success "$TESTS_SUCCESS"
+    print_success "${TESTS_SUCCESS}"
 else
     print_failed "${TESTS_SUCCESS}"
-fi
-printf "      FAILED"
-if [ "${TESTS_FAILED}" -gt 0 ]; then
-    print_failed  "$TESTS_FAILED"
-else
-    print_failed  0
-fi
-printf "      BROKEN"
-if [ "${TESTS_BROKEN}" -gt 0 ]; then
-    print_failed  "$TESTS_BROKEN"
-else
-    print_failed  0
 fi
 printf "      FIXED"
 if [ "${TESTS_FIXED}" -gt 0 ]; then
@@ -92,9 +88,30 @@ if [ "${TESTS_FIXED}" -gt 0 ]; then
 else
     print_failed  0
 fi
+printf "      BROKEN"
+if [ "${TESTS_BROKEN}" -gt 0 ]; then
+    print_failed  "${TESTS_BROKEN}"
+else
+    print_failed  0
+fi
+printf "      FAILED"
+if [ "${TESTS_FAILED}" -gt 0 ]; then
+    print_failed  "${TESTS_FAILED}"
+else
+    print_failed  0
+fi
 printf "      TOTAL\r"
 print_label "[${TESTS_RUN}]"
 echo
+
+# Save statistics
+cd $R
+V=`r2 -v 2>/dev/null| grep ^rada| awk '{print $5}'`
+touch stats.csv
+grep -v "^$V" stats.csv > .stats.csv
+echo "$V,${TESTS_SUCCESS},${TESTS_FIXED},${TESTS_BROKEN},${TESTS_FAILED},${FAILED}" >> .stats.csv
+sort .stats.csv > stats.csv
+rm -f .stats.csv
 
 # Proper exit code.
 if [ "${TESTS_RUN}" -eq "${TESTS_SUCCESS}" ]; then

@@ -234,7 +234,7 @@ test_failed() {
     else
         print_failed "BR"
     fi
-
+    FAILED="${FAILED}${TEST_NAME}:"
     if [ -n "${R2_SOURCED}" ]; then
         if [ -z "${BROKEN}" ]; then
             TESTS_FAILED=$(( TESTS_FAILED + 1 ))

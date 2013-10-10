@@ -8,8 +8,8 @@ fi
 TESTS=$@
 UPTO=32
 if [ "${TESTS}" = "-a" ]; then
-	TESTS=$(cd t ; ls)
-
+	TESTS_ALL=1
+	TESTS=$(find t -type f| grep -v '/\.')
 elif [ "${TESTS}" = "-b" ]; then
 	TESTS=$(cd t ; grep -r BROKEN=1 *|cut -d : -f 1)
 fi
@@ -34,15 +34,19 @@ for a in ${REVS}; do
 	sleep 2
 	sys/install-rev.sh ${a} > build.$a.log 2>&1
 	cd .. # r2-regressions
-	for b in ${TESTS}; do
-		R2_SOURCED=1 ./$b
-		if [ $? = 0 ]; then
-			echo "* Worked on revision $a"
-			exit 0
-		else
-			echo "* Error on revision $a"
-		fi
-	done
+	if [ 1 = "${TESTS_ALL}" ]; then
+		make
+	else
+		for b in ${TESTS}; do
+			R2_SOURCED=1 ./$b
+			if [ $? = 0 ]; then
+				echo "* Worked on revision $a"
+				exit 0
+			else
+				echo "* Error on revision $a"
+			fi
+		done
+	fi
 	cd radare2
 done
 exit 1
