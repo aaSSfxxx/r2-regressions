@@ -9,7 +9,7 @@
 NAME='!'
 FILE=-
 ARGS=
-BROKEN=1
+BROKEN=
 CMDS='
 ?e fuck
 ?e yeah

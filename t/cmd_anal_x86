@@ -3,7 +3,7 @@
 [ -e tests.sh ] && . ./tests.sh || . ../tests.sh
 
 NAME='af jmp after ret'
-BROKEN=1
+BROKEN=
 FILE=malloc://512
 ARGS=
 CMDS='
@@ -20,7 +20,7 @@ run_test
 
 
 NAME='af jmp after ret'
-BROKEN=1
+BROKEN=
 FILE=malloc://512
 ARGS=
 CMDS='

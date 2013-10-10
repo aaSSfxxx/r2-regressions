@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# GPL 3+ - Copyright (C) 2011-2012  pancake, Edd Barrett, Simon Ruderich
+# GPL 3+ - Copyright (C) 2011-2013  pancake, Edd Barrett, Simon Ruderich
 
 [ -e tests.sh ] && . ./tests.sh || . ../tests.sh
 
@@ -12,15 +12,15 @@ FILE=malloc://1024
 ARGS=
 CMDS='
 # Normal redirect.
-pb 10 > dump
+p8 10 > dump
 !wc -c dump|awk "{print \$1}"
 # Redirect with output bigger than CONS_MAX_USER.
-pb 12800 > dump
+p8 12800 > dump
 !wc -c dump|awk "{print \$1}"
 !rm -f dump
 '
-EXPECT='81
-102401
+EXPECT='21
+25601
 '
 
 EXPECT_ERR=''
