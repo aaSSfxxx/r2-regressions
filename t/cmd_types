@@ -5,7 +5,7 @@
 [ -e tests.sh ] && . ./tests.sh || . ../tests.sh
 
 NAME='td'
-BROKEN=1
+BROKEN=
 FILE=-
 CMDS='
 "td struct a{int a;int b;};"

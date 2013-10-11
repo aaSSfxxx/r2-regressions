@@ -41,7 +41,7 @@ EXPECT='0x0
 
 0xrandomnr
 
-0000000000000000000000000000000000000000000000000000000000000000
+0b
 
 0
 0x0
@@ -49,7 +49,7 @@ EXPECT='0x0
 0x0
 '
 # %r is a random number. %t displays a different time on each run.
-FILTER="sed 's/^0x[0-9a-f][0-9a-f][0-9a-f]*$/0xrandomnr/g;
+FILTER="sed -e 's/^0x[0-9a-f][0-9a-f][0-9a-f]*$/0xrandomnr/g;
              s/^0\\.00[0-9]*$/0.004711/'"
 run_test
 

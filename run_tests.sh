@@ -86,7 +86,7 @@ printf "      FIXED"
 if [ "${TESTS_FIXED}" -gt 0 ]; then
     print_fixed   "${TESTS_FIXED}"
 else
-    print_failed  0
+    print_fixed   0
 fi
 printf "      BROKEN"
 if [ "${TESTS_BROKEN}" -gt 0 ]; then

@@ -7,7 +7,7 @@
 ## test visual mode in batch
 
 NAME='Vc+cq'
-BROKEN=1
+BROKEN=
 FILE=-
 ARGS=
 CMDS='

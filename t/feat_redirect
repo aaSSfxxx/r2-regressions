@@ -25,3 +25,16 @@ EXPECT='21
 
 EXPECT_ERR=''
 run_test
+
+NAME="p8|sed -e s,0,x,g>x;cat x;rm x"
+FILE=malloc://512
+ARGS=
+CMDS='
+wv 0x100
+p8 8| sed -e s,1,x,g>x;cat x;rm x
+'
+EXPECT='000x000000000000
+'
+
+EXPECT_ERR=''
+run_test

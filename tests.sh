@@ -21,6 +21,10 @@ GREP="$1"
 GREP=""
 cd `dirname $0` 2>/dev/null
 
+# ignore encoding in sed
+export LANG=C
+export LC_CTYPE=C
+
 printdiff() {
     if [ -n "${VERBOSE}" ]; then
         echo
