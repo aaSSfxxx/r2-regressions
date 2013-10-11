@@ -2,9 +2,21 @@
 
 # GPL 3+ - Copyright (C) 2012-2013  pancake
 
-[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
 
-## grep
+NAME='alloc map'
+FILE=malloc://1024
+ARGS=
+CMDS='
+s 0
+b 100
+wox 0x10 @ 0
+on malloc://0x1000 0x80000
+p8 4 @ 0x80000
+'
+EXPECT='00000000
+'
+run_test
 
 # Basic grep.
 NAME='o 100'
@@ -16,7 +28,7 @@ b 100
 wox 0x10 @ 0
 o malloc://0x1000 0x80000
 b 0x1000
-wow 0x20 @ 0x80000
+wow 20 @ 0x80000
 b 20
 p8 @ 0
 p8 @ 90
@@ -24,7 +36,7 @@ p8 @ 0x400
 p8 @ 0x80000
 '
 EXPECT='1010101010101010101010101010101010101010
-10101010101010101010ffffffffffffffffffff
+1010101010101010101000000000000000000000
 ffffffffffffffffffffffffffffffffffffffff
 2020202020202020202020202020202020202020
 '
@@ -33,8 +45,8 @@ run_test
 NAME='om 0x100;x@0xff'
 FILE=-
 CMDS='om `o~[1]` 0x100
-w pop
-p8 4 @0xff
+w pop @ 1
+p8 4 @ 0x100
 '
 EXPECT='00706f70
 '

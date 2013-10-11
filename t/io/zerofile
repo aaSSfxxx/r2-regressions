@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
+# GPL 3+ - Copyright (C) 2012-2013  pancake, Edd Barrett, Simon Ruderich
 
-[ -e tests.sh ] && . ./tests.sh || . ../../tests.sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
 
 
 NAME='empty file+seek'
