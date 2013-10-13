@@ -1,0 +1,16 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+FILE=malloc://1024k
+CMDS='
+e asm.arch=x86
+e asm.bits=16
+e anal.hasnext=0
+wx e9c300 @ f000:ffaa
+s f000:ffaa
+pi 1
+'
+EXPECT='jmp 0xf0070
+'
+
+run_test
