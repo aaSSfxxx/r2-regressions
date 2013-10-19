@@ -1,0 +1,25 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+NAME="mips-endian"
+CMDS='
+e asm.arch=mips
+e asm.bits=32
+e cfg.bigendian=0
+pa lui t9, 0x41
+e cfg.bigendian=1
+#
+pa lui t9, 0x41
+e cfg.bigendian=0
+pad 4100193c
+e cfg.bigendian=1
+pad 3c190041
+#
+'
+EXPECT='4100193c
+3c190041
+lui t9, 0x41
+lui t9, 0x41
+'
+
+run_test

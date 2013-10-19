@@ -1,0 +1,25 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+NAME="arm-endian"
+CMDS='
+e asm.arch=arm
+e asm.bits=32
+e cfg.bigendian=0
+pa mov r0, 33
+e cfg.bigendian=1
+pa mov r0, 33
+#
+e cfg.bigendian=0
+pad 2100a0e3
+e cfg.bigendian=1
+pad e3a00021
+#
+'
+EXPECT='2100a0e3
+e3a00021
+mov r0, 33
+mov r0, 33
+'
+
+run_test
