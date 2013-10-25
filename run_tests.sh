@@ -113,6 +113,11 @@ echo "$V,${TESTS_SUCCESS},${TESTS_FIXED},${TESTS_BROKEN},${TESTS_FAILED},${FAILE
 sort .stats.csv > stats.csv
 rm -f .stats.csv
 
+if [ "${TESTS_FAILED}" -gt 0 ]; then
+  exit 1
+fi
+exit 0
+
 # Proper exit code.
 if [ "${TESTS_RUN}" -eq "${TESTS_SUCCESS}" ]; then
     exit 0

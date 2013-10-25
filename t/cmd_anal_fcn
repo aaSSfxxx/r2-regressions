@@ -37,7 +37,7 @@ run_test
 IGNORE_ERR=0
 
 NAME='af bug'
-BROKEN=
+BROKEN=1
 FILE=malloc://1024
 ARGS=
 CMDS='
