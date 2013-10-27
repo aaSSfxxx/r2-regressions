@@ -4,7 +4,7 @@
 
 [ -e tests.sh ] && . ./tests.sh || . ../tests.sh
 
-NAME='td'
+NAME='struct'
 BROKEN=
 FILE=-
 CMDS='
@@ -18,5 +18,19 @@ a=struct
 (+)struct.a=b
 ()struct.a.b=int,4,0
 18
+'
+run_test
+
+NAME='enum64'
+BROKEN=
+FILE=-
+CMDS='
+"td enum v { t=0x8000000000000001, p=0x8000000000000008 };"
+t~?
+'
+EXPECT='v=enum
+v.t=0x8000000000000001
+v.p=0x8000000000000008
+17
 '
 run_test
