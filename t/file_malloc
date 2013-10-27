@@ -11,6 +11,7 @@ NAME='malloc://1024'
 FILE=malloc://1024
 ARGS=
 CMDS='
+b 0x40
 i
 px
 '
@@ -35,6 +36,7 @@ NAME='malloc://1'
 FILE=malloc://1
 ARGS=
 CMDS='
+b 0x40
 i
 px
 '
