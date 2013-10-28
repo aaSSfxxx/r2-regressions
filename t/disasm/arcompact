@@ -150,6 +150,7 @@ run_test
 # BL instruction
 NAME="arcompact: [BL]] - jump check"
 FILE=malloc://512
+BROKEN=1
 CMDS='
 e asm.arch=arc
 e asm.bits=16
@@ -176,6 +177,7 @@ run_test
 
 # -------------------------------
 # BRLT instruction
+BROKEN=1
 NAME="arcompact: [BRLT]"
 FILE=malloc://1024
 CMDS='
@@ -193,6 +195,7 @@ run_test
 # BREQ instruction
 NAME="arcompact: [BREQ]"
 FILE=malloc://1024
+BROKEN=1
 CMDS='
 e asm.arch=arc
 e asm.bits=16
@@ -348,6 +351,7 @@ run_test
 # NOP instruction
 NAME="arcompact: [NOP]"
 FILE=malloc://32
+BROKEN=1
 CMDS='
 e asm.arch=arc
 e asm.bits=16
@@ -361,6 +365,7 @@ run_test
 # -------------------------------
 # NOP_S instruction
 NAME="arcompact: [NOP_S]"
+BROKEN=1
 FILE=malloc://32
 CMDS='
 e asm.arch=arc
@@ -444,6 +449,7 @@ run_test
 # SWI instruction
 NAME="arcompact: [SWI]"
 FILE=malloc://512
+BROKEN=1
 CMDS='
 e asm.arch=arc
 e asm.bits=16
