@@ -524,7 +524,6 @@ run_test
 # LD instruction
 NAME="arc4: [LD]"
 FILE=malloc://32
-BROKEN=1
 CMDS='
 e asm.arch=arc
 e asm.bits=32
@@ -543,7 +542,7 @@ e asm.bits=32
 wx 04908008
 pi 1
 '
-EXPECT='ld.a r4, [r1,4]
+EXPECT='ld.a r4, [r1, 4]
 '
 run_test
 
@@ -555,7 +554,7 @@ e asm.bits=32
 wx 01948008
 pi 1
 '
-EXPECT='ldb.a r4, [r1,1]
+EXPECT='ldb.a r4, [r1, 1]
 '
 run_test
 
@@ -851,7 +850,6 @@ run_test
 # ST instruction
 NAME="arc4: [ST]"
 FILE=malloc://32
-BROKEN=1
 CMDS='
 e asm.arch=arc
 e asm.bits=32
@@ -870,7 +868,7 @@ e asm.bits=32
 wx 04880111
 pi 1
 '
-EXPECT='st.a r4, [r3,4]
+EXPECT='st.a r4, [r3, 4]
 '
 run_test
 
@@ -884,7 +882,7 @@ e asm.bits=32
 wx 01884111
 pi 1
 '
-EXPECT='stb.a r4, [r3,1]
+EXPECT='stb.a r4, [r3, 1]
 '
 run_test
 
