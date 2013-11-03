@@ -22,7 +22,7 @@ a=struct
 run_test
 
 NAME='enum64'
-BROKEN=
+BROKEN=1
 FILE=-
 CMDS='
 "td enum v { t=0x8000000000000001, p=0x8000000000000008 };"
