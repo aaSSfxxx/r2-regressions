@@ -65,11 +65,12 @@ run_test() {
         fi
     fi
     [ -n "${VALGRIND}" ] && NAME_TMP="${NAME_TMP} (valgrind)"
-if [ -n "${NOCOLOR}" ]; then
-    printf "[  ]  %s: %-30s" "${NAME_A}" "${NAME_B}"
-else
-    printf "\033[33m[  ]  %s: \033[0m%-30s" "${NAME_A}" "${NAME_B}" #"${NAME_TMP}"
-fi
+
+    if [ -n "${NOCOLOR}" ]; then
+        printf "[  ]  %s: %-30s" "${NAME_A}" "${NAME_B}"
+    else
+        printf "\033[33m[  ]  %s: \033[0m%-30s" "${NAME_A}" "${NAME_B}" #"${NAME_TMP}"
+    fi
 
     # Check required variables.
     if [ -z "${FILE}" ]; then
