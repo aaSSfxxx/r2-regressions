@@ -241,7 +241,7 @@ test_failed() {
     if [ -z "${BROKEN}" ]; then
         print_failed "XX"
     else
-        print_failed "BR"
+        print_broken "BR"
     fi
     FAILED="${FAILED}${TEST_NAME}:"
     if [ -n "${R2_SOURCED}" ]; then
@@ -258,6 +258,14 @@ if [ -n "${NOCOLOR}" ]; then
     printf "%b" "\r[${*}]\n"
 else
     printf "%b" "\r\033[32m[${*}]\033[0m\n"
+fi
+}
+
+print_broken() {
+if [ -n "${NOCOLOR}" ]; then
+    printf "%b" "\r[${*}]\n"
+else
+    printf "%b" "\r\033[34m[${*}]\033[0m\n"
 fi
 }
 

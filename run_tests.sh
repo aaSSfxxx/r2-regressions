@@ -90,9 +90,9 @@ else
 fi
 printf "      BROKEN"
 if [ "${TESTS_BROKEN}" -gt 0 ]; then
-    print_failed  "${TESTS_BROKEN}"
+    print_broken "${TESTS_BROKEN}"
 else
-    print_failed  0
+    print_broken 0
 fi
 printf "      FAILED"
 if [ "${TESTS_FAILED}" -gt 0 ]; then
