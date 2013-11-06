@@ -1,0 +1,16 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+BROKEN=
+CMDS='
+b 10
+pd~?
+pd 3~?
+pd 20~?
+'
+EXPECT='10
+3
+20
+'
+
+run_test
