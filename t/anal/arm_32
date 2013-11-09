@@ -1,0 +1,39 @@
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+NAME="ldr code analysis"
+BROKEN=1
+FILE=malloc://32
+CMDS='
+wx 20c09fe5
+s+4
+wx 0cc09ae7
+e asm.arch=arm
+e asm.bits=32
+# pd 2 - note different colors
+pi 2@0
+ao@0~type[2]
+ao@4~type[2]
+'
+EXPECT='ldr ip, [pc, 32]
+ldr ip, [sl, ip]
+(load)
+(load)
+'
+run_test
+
+NAME="endian"
+BROKEN=
+FILE=malloc://32
+CMDS='
+e asm.arch=arm
+e asm.bits=32
+wx e59a9ae7
+e cfg.bigendian=false
+pi 1@0
+e cfg.bigendian=true
+pi 1@0
+'
+EXPECT='ldr r9, [sl, r5, ror 21]
+ldr r9, [sl, 2791]
+'
+run_test
