@@ -5,13 +5,12 @@ BROKEN=1
 FILE=malloc://32
 CMDS='
 wx 20c09fe5
-s+4
-wx 0cc09ae7
+wx 0cc09ae7 @ 4
 e asm.arch=arm
 e asm.bits=32
 # pd 2 - note different colors
-pi 2@0
-ao@0~type[2]
+pi 2
+ao~type[2]
 ao@4~type[2]
 '
 EXPECT='ldr ip, [pc, 32]
