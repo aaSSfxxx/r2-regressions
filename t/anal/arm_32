@@ -13,7 +13,7 @@ pi 2
 ao~type[2]
 ao@4~type[2]
 '
-EXPECT='ldr ip, [pc, 32]
+EXPECT='ldr ip, [pc, 32] ; 0x00000028
 ldr ip, [sl, ip]
 (load)
 (load)
