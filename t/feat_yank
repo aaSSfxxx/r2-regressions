@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
+
+[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
+
+NAME='yank-segfault'
+FILE=-
+ARGS=
+CMDS='y -2
+'
+EXPECT=''
+run_test
+
+NAME='yank-and-paste'
+FILE=-
+ARGS=
+CMDS='b 64
+w hello world
+y 5
+yy@6
+psz
+'
+EXPECT='hello hello
+'
+run_test
