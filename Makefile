@@ -1,5 +1,7 @@
+PULLADDR=https://github.com/radare/r2-regressions.git
+
 all:
-	-git pull
+	-git pull ${PULLADDR}
 	@sh run_tests.sh
 
 broken:
