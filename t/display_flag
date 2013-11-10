@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
+
+[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
+
+## test visual mode in batch
+
+NAME='Flags comments'
+BROKEN=1
+FILE=malloc://512
+ARGS=
+CMDS='
+e asm.arch=x86
+e asm.bits=16
+wx 66b801000000b90f006683fb02e2fa66bb01000000c3
+af+ 0000:0000 22 fnc1
+f .loop1 @ 0000:0009
+pd 1 @ 0000:000d
+'
+EXPECT='│           0000:000d    e2fa         loop 0x10009 ; (loop1) ; (fcn1)
+'
+run_test
