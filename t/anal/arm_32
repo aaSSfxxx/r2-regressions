@@ -1,7 +1,7 @@
 for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
 
 NAME="ldr code analysis"
-BROKEN=1
+BROKEN=
 FILE=malloc://32
 CMDS='
 wx 20c09fe5
