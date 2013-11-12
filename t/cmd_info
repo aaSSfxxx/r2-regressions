@@ -29,7 +29,7 @@ iS*
 iz
 iz*
 '
-EXPECT='file	1025
+EXPECT='file	malloc://1025
 fd	42
 size	0x401
 mode	r--

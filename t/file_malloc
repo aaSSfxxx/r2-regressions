@@ -15,7 +15,7 @@ b 0x40
 i
 px
 '
-EXPECT='file	1024
+EXPECT='file	malloc://1024
 fd	42
 size	0x400
 mode	r--
@@ -40,7 +40,7 @@ b 0x40
 i
 px
 '
-EXPECT='file	1
+EXPECT='file	malloc://1
 fd	42
 size	0x1
 mode	r--
