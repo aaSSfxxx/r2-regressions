@@ -26,7 +26,7 @@ EXPECT='hello hello
 run_test
 
 NAME='yank-segfault2'
-BROKEN=1
+BROKEN=
 FILE=-
 ARGS=
 CMDS='y 0
@@ -38,5 +38,18 @@ y 0
 y 0
 ?e ok
 '
-EXPECT='ok'
+EXPECT='0x00000000 20 0000000000000000000000000000000000000000
+ok
+'
+run_test
+
+NAME='yank-segfault3'
+BROKEN=
+FILE=-
+ARGS=
+CMDS='y #
+?e ok
+'
+EXPECT='ok
+'
 run_test
