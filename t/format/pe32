@@ -1,0 +1,13 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+BROKEN=1
+FILE=../../b/pe.exe
+CMDS='
+s
+'
+EXPECT='0x401000
+'
+EXPECT_ERR=''
+
+run_test
