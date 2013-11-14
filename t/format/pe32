@@ -2,7 +2,7 @@
 for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
 
 BROKEN=1
-FILE=../../b/pe.exe
+FILE=../../b/files/pe.exe
 CMDS='
 s
 '
