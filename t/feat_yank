@@ -53,3 +53,30 @@ CMDS='y #
 EXPECT='ok
 '
 run_test
+
+NAME='yank-segfault4'
+IGNORE_ERR=1
+BROKEN=
+FILE=-
+ARGS=
+CMDS='y 1000000000
+?e ok
+'
+EXPECT='ok
+'
+run_test
+
+NAME='yank-doublefree'
+IGNORE_ERR=1
+BROKEN=
+FILE=-
+ARGS=
+CMDS='y -5
+y -5
+?e ok
+'
+EXPECT='ok
+'
+
+run_test
+
