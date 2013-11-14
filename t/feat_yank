@@ -5,6 +5,7 @@
 [ -e tests.sh ] && . ./tests.sh || . ../tests.sh
 
 NAME='yank-segfault'
+IGNORE_ERR=1
 FILE=-
 ARGS=
 CMDS='y -2
