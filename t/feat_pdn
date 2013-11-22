@@ -1,0 +1,28 @@
+#!/bin/sh
+# GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
+[ -e tests.sh ] && . ./tests.sh || . ../tests.sh
+
+NAME='pdn look at bytes'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=64
+
+wx b8010000004839ca7f26b8ffffffff4839ca7c1c498b4838498b5138b8010000004839ca7f0ab8ffffffff4839ca7d025dc34883c7684883c6685dc3
+pdn 5
+pdn 5 x86 32
+pdn 3 x86 64 @0x5
+pdn 3 x86 32 @0x5
+'
+EXPECT='1
+0x00000000       b801000000  mov eax, 0x1
+0x00000000       b801000000  mov eax, 0x1
+0x00000005           4839ca  cmp rdx, rcx
+0x00000005           4839ca  cmp rdx, rcx
+0x00000005               48  dec eax
+0x00000006             39ca  cmp edx, ecx
+'
+run_test
