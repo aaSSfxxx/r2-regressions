@@ -2,6 +2,21 @@
 # GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
 for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
 
+# NAME='pd -10'
+# BROKEN=
+# FILE=malloc://512
+# ARGS=
+# CMDS='
+# e anal.hasnext=0
+# e asm.arch=x86
+# e asm.bits=64
+# wx b8010000004
+# pd -10
+# '
+# EXPECT="This block size is too big (0x40000<0xfffffffffffffff6). Did you mean 'pd @ 0xfffffff6' instead?
+# "
+# run_test
+
 NAME='pdn look at bytes'
 BROKEN=
 FILE=malloc://512
@@ -10,8 +25,7 @@ CMDS='
 e anal.hasnext=0
 e asm.arch=x86
 e asm.bits=64
-
-wx b8010000004839ca7f26
+wx b8010000004839ca7f
 pdn 5
 pdn 5 x86 32
 pdn 3 x86 64 @ 5
@@ -22,5 +36,32 @@ EXPECT='0x00000000       b801000000  mov eax, 0x1
 0x00000005           4839ca  cmp rdx, rcx
 0x00000005               48  dec eax
 0x00000006             39ca  cmp edx, ecx
+'
+run_test
+
+NAME='pdn look at bytes arm then x86 32 and 64'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+wx 20c09fe5
+wx b8010000 @5
+e asm.arch=arm
+e asm.bits=32
+pdn 8
+pdn 8 x86 32
+pdn 8 x86 64
+pdn 8 x86
+'
+EXPECT='0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x00000028
+0x00000001         c09fe500  rsceq r9, r5, r0, asr 31
+0x00000002         9fe500b8  stmdalt r0, {r0, r1, r2, r3, r4, r7, r8, sl, sp, lr, pc}
+0x00000003         e500b801  ; <UNDEFINED> 0x01b800e5
+0x00000000             20c0  and al, al
+0x00000001   c09fe500b80100  rcr byte [edi+0x1b800e5], 0x0
+0x00000000             20c0  and al, al
+0x00000001   c09fe500b80100  rcr byte [rdi+0x1b800e5], 0x0
+0x00000000             20c0  and al, al
+0x00000001   c09fe500b80100  rcr byte [edi+0x1b800e5], 0x0
 '
 run_test
