@@ -72,8 +72,8 @@ echo "==> Using $THREADS threads"
 
 FILE_SUCCESS=$(mktemp /tmp/.r2-stats.XXXXXX)
 FILE_FAILED=$(mktemp /tmp/.r2-stats.XXXXXX)
-FILE_FIXED=$(mktemp /tmp/.r2-stats.XXXXXX)
 FILE_BROKEN=$(mktemp /tmp/.r2-stats.XXXXXX)
+FILE_FIXED=$(mktemp /tmp/.r2-stats.XXXXXX)
 FILE_TOTAL=$(mktemp /tmp/.r2-stats.XXXXXX)
 FILES="${FILE_SUCCESS} ${FILE_FAILED} ${FILE_FIXED} ${FILE_BROKEN} ${FILE_TOTAL}"
 
@@ -93,8 +93,8 @@ runfile() {
       lock
       N=$((`cat ${FILE_SUCCESS}`+${TESTS_SUCCESS})); echo $N > ${FILE_SUCCESS}
       N=$((`cat ${FILE_FAILED}`+${TESTS_FAILED})); echo $N > ${FILE_FAILED}
-      N=$((`cat ${FILE_FIXED}`+${TESTS_FIXED})); echo $N > ${FILE_FIXED}
       N=$((`cat ${FILE_BROKEN}`+${TESTS_BROKEN})); echo $N > ${FILE_BROKEN}
+      N=$((`cat ${FILE_FIXED}`+${TESTS_FIXED})); echo $N > ${FILE_FIXED}
       N=$((`cat ${FILE_TOTAL}`+${TESTS_TOTAL})); echo $N > ${FILE_TOTAL}
       unlock
     ) &
@@ -102,6 +102,7 @@ runfile() {
       NTH=0
       wait
       cat $TFS
+      rm -f $TFS
       TFS=""
     fi
 # XXX counters fail here
