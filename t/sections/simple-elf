@@ -1,6 +1,5 @@
 #!/bin/sh
-for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
-
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh && break ; done
 
 FILE=../../s/x86-simple
 CMDS='

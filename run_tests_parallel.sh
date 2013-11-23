@@ -17,6 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+lock() {
+	while ! ln -s . lock 2>/dev/null ; do :; done
+}
+
+unlock() {
+	mv lock deleteme && rm -f deleteme
+}
 
 # Statistics.
 TESTS_TOTAL=0
@@ -39,6 +46,14 @@ control_c() {
 }
 trap control_c 2
 
+if [ "$1" = "-j" ]; then
+	shift
+	THREADS=$1
+	shift
+else
+	THREADS=8
+fi
+
 . ./tests.sh
 
 r2 > /dev/null
@@ -47,6 +62,56 @@ if [ $? != 0 ]; then
     exit 1
 fi
 
+NTH=0
+TFS=""
+
+[ "${THREADS}" -lt 1 ] && THREADS=1
+[ -z "${THREADS}" ] && THREADS=8
+
+echo "==> Using $THREADS threads"
+
+FILE_SUCCESS=$(mktemp /tmp/.r2-stats.XXXXXX)
+FILE_FAILED=$(mktemp /tmp/.r2-stats.XXXXXX)
+FILE_FIXED=$(mktemp /tmp/.r2-stats.XXXXXX)
+FILE_BROKEN=$(mktemp /tmp/.r2-stats.XXXXXX)
+FILE_TOTAL=$(mktemp /tmp/.r2-stats.XXXXXX)
+FILES="${FILE_SUCCESS} ${FILE_FAILED} ${FILE_FIXED} ${FILE_BROKEN} ${FILE_TOTAL}"
+
+for a in $FILES ; do
+  echo 0 > $a
+done
+
+runfile() {
+  [ -z "$2" ] && return
+  if [ $THREADS -gt 1 ]; then
+    TF=`mktemp /tmp/.r2-tests.XXXXXX`
+    TFS="${TFS} $TF"
+    NTH=$(($NTH+1))
+    (
+      cd $1 
+      . ./$2 > $TF
+      lock
+      N=$((`cat ${FILE_SUCCESS}`+${TESTS_SUCCESS})); echo $N > ${FILE_SUCCESS}
+      N=$((`cat ${FILE_FAILED}`+${TESTS_FAILED})); echo $N > ${FILE_FAILED}
+      N=$((`cat ${FILE_FIXED}`+${TESTS_FIXED})); echo $N > ${FILE_FIXED}
+      N=$((`cat ${FILE_BROKEN}`+${TESTS_BROKEN})); echo $N > ${FILE_BROKEN}
+      N=$((`cat ${FILE_TOTAL}`+${TESTS_TOTAL})); echo $N > ${FILE_TOTAL}
+      unlock
+    ) &
+    if [ ${NTH} -ge $THREADS ]; then
+      NTH=0
+      wait
+      cat $TFS
+      TFS=""
+    fi
+# XXX counters fail here
+  else
+  (
+    cd $1
+    . ./$2
+  )
+  fi
+}
 
 R=$PWD
 # Run all tests.
@@ -56,21 +121,29 @@ cd $T || die "t/ doesn't exist"
 for file in * ; do
    [ "$file" = '*' ] && break
    if [ -d "$file" ]; then
-      cd $file
-      for file2 in *; do
-         [ "$file2" = '*' ] && break
+      for file2 in $(ls $file); do
          TEST_NAME=$(echo "${file2}" | sed 's/.sh$//')
-	 NAME=`basename $file2`
-         TEST_NAME=$file
-         . ./${file2}
+	 NAME=`cd $file ; basename $file2`
+         #TEST_NAME=$file
+	 runfile ./$file/ ${file2}
       done
-      cd ..
    else
       NAME=`basename $file`
       TEST_NAME=$NAME
-      . ./${file}
+      runfile ./ ${file}
    fi
 done
+rm -f $TFS
+
+wait
+if [ $THREADS -gt 1 ]; then
+    TESTS_SUCCESS=$(cat ${FILE_SUCCESS})
+    TESTS_FAILED=$(cat ${FILE_FAILED})
+    TESTS_FIXED=$(cat ${FILE_FIXED})
+    TESTS_BROKEN=$(cat ${FILE_BROKEN})
+    TESTS_TOTAL=$(cat ${FILE_TOTAL})
+fi
+rm -f ${FILES}
 
 # Print report.
 echo

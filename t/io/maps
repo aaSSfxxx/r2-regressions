@@ -3,6 +3,7 @@
 # GPL 3+ - Copyright (C) 2012-2013  pancake
 
 for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+RET=0
 
 NAME='alloc map'
 FILE=malloc://1024
@@ -17,6 +18,7 @@ p8 4 @ 0x80000
 EXPECT='00000000
 '
 run_test
+[ $? != 0 ] && RET=$?
 
 # Basic grep.
 NAME='o 100'
@@ -41,6 +43,7 @@ ffffffffffffffffffffffffffffffffffffffff
 2020202020202020202020202020202020202020
 '
 run_test
+[ $? != 0 ] && RET=$?
 
 NAME='om 0x100;x@0xff'
 FILE=-
@@ -51,3 +54,7 @@ p8 4 @ 0x100
 EXPECT='00706f70
 '
 run_test
+[ $? != 0 ] && RET=$?
+RET=4
+
+return $RET

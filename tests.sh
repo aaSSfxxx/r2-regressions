@@ -42,7 +42,7 @@ run_test() {
 
     if [ -n "${GREP}" ]; then
         if [ -z "`echo \"${NAME}\" | grep \"${GREP}\"`" ]; then
-	    return
+            return
         fi
     fi
 
@@ -57,11 +57,11 @@ run_test() {
         if [ "$NAME_TMP" = "$NAME" ]; then
 		NAME_A="${NAME_TMP}"
 		NAME_B=""
-            NAME_TMP="${NAME_TMP}:"
+              NAME_TMP="${NAME_TMP}:"
         else
 		NAME_A="${NAME_TMP}"
 		NAME_B="${NAME}"
-            NAME_TMP="${NAME_TMP}: ${NAME}"
+              NAME_TMP="${NAME_TMP}: ${NAME}"
         fi
     fi
     [ -n "${VALGRIND}" ] && NAME_TMP="${NAME_TMP} (valgrind)"
@@ -118,7 +118,7 @@ run_test() {
     CODE=$?
 
     if [ -n "${R2_SOURCED}" ]; then
-        TESTS_RUN=$(( TESTS_RUN + 1 ))
+        TESTS_TOTAL=$(( TESTS_TOTAL + 1 ))
     fi
 
     # ${FILTER} can be used to filter out random results to create stable
