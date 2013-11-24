@@ -208,3 +208,81 @@ pds -2 @ 3
 EXPECT='            0x00000001    0000         add [eax], al
 '
 run_test
+
+NAME='wx, pds -2 @ 2'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+e asm.arch=x86
+e asm.bits=32
+e anal.hasnext=0
+wx 0000000090909090909090909090909090
+pds -2 @ 2
+'
+EXPECT='            0x00000000    0000         add [eax], al
+            0xfffffffffffffffe    ff           invalid
+'
+run_test
+
+
+NAME='wx, pds -5 @ 6'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+e asm.arch=x86
+e asm.bits=32
+e anal.hasnext=0
+wx 0000000090909090909090909090909090
+pds -5 @ 6
+'
+EXPECT='            0x00000000    0000         add [eax], al
+            0x00000002    0000         add [eax], al
+            0x00000004    90           nop
+            0x00000005    90           nop
+            0xfffffffffffffffe    ff           invalid
+'
+run_test
+
+NAME='wx, pDs -5 @ 6'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+e asm.arch=x86
+e asm.bits=32
+e anal.hasnext=0
+wx 0000000090909090909090909090909090
+pDs -5 @ 6
+'
+EXPECT='            0x00000002    0000         add [eax], al
+            0x00000003    00           invalid
+            0x00000004    90           nop
+            0x00000005    90           nop
+            0x00000006    90           nop
+'
+run_test
+
+
+NAME='wx, pDs -9 @ 6'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+e asm.arch=x86
+e asm.bits=32
+e anal.hasnext=0
+wx 0000000090909090909090909090909090
+pDs -9 @ 6
+'
+EXPECT='            0x00000000    0000         add [eax], al
+            0x00000002    0000         add [eax], al
+            0x00000003    00           invalid
+            0x00000004    90           nop
+            0x00000005    90           nop
+            0x00000006    90           nop
+            0xfffffffffffffffe    ff           invalid
+'
+run_test
+
