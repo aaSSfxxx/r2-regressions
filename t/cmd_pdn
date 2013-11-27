@@ -1,0 +1,108 @@
+#!/bin/sh
+# GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+
+
+
+
+NAME='pdn -4 @ 0'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='pdn -4 @ 0
+'
+EXPECT='0xfffffffffffffffc               ff  <invalid>
+0xfffffffffffffffd               ff  <invalid>
+0xfffffffffffffffe               ff  <invalid>
+0xffffffffffffffff               ff  <invalid>
+'
+run_test
+
+
+NAME='pdn pos/neg using [arch] [bits] settings, need to manually set'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=64
+wx 20c09fe5b8010000004839ca7f
+pdn 4 arm 32 @ 0
+pdn -4 arm 32 @ 4
+'
+EXPECT='0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x00000028
+0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x0000002c
+'
+run_test
+
+NAME='pds and pDs using [arch] [bits] settings, need to manually set'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=64
+wx 20c09fe5b8010000004839ca7f
+pDs -4 arm 32 @ 4
+pds -4 arm 32 @ 4
+pd -4 arm 32 @ 4
+pD -4 arm 32 @ 4
+'
+EXPECT='0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x0000002c
+0x00000001               c0  <invalid>
+0x00000002               9f  <invalid>
+0x00000003               e5  <invalid>
+0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x0000002c
+'
+run_test
+
+
+NAME='pds and pDs using [arch] [bits] settings, need to manually set'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=64
+wx 20c09fe5b8010000004839ca7f
+pDs -4 arm 32 @ 2
+'
+EXPECT='0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x0000002c
+0x00000001               c0  <invalid>
+0x00000002               9f  <invalid>
+0x00000003               e5  <invalid>
+0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x0000002c
+'
+run_test
+
+NAME='corner case for 0 - max(ut64) wrap around'
+BROKEN=
+FILE=malloc://51
+ARGS=
+CMDS='
+pDs -4 arm 32 @ 2
+'
+EXPECT='0x00000000         00000000  andeq r0, r0, r0
+0x00000001         00000000  andeq r0, r0, r0
+0xffffffffffffffff         00000000  andeq r0, r0, r0
+0xfffffffffffffffe         ffff0000  strdeq pc, [r0], -pc; <UNPREDICTABLE>
+'
+run_test
+
+NAME='corner case for 0 - max(ut64) wrap around'
+BROKEN=
+FILE=malloc://51
+ARGS=
+CMDS='
+pds -4 arm 32 @ 2
+'
+EXPECT='0x00000000               00  <invalid>
+0x00000001               00  <invalid>
+0xffffffffffffffff               00  <invalid>
+0xfffffffffffffffe         ffff0000  strdeq pc, [r0], -pc; <UNPREDICTABLE>
+'
+run_test

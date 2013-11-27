@@ -1,0 +1,88 @@
+#!/bin/sh
+# GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+
+NAME='pD -5 @ 0'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f
+pD -5
+'
+EXPECT='            0x00000000    b801000000   mov eax, 0x1
+------
+            0xfffffffffffffffb    ff           invalid
+            0xfffffffffffffffc    ff           invalid
+            0xfffffffffffffffd    ff           invalid
+            0xfffffffffffffffe    ff           invalid
+            0xffffffffffffffff    ff           invalid
+------
+            0xfffffffffffffffc    ff           invalid
+            0xfffffffffffffffd    ff           invalid
+            0xfffffffffffffffe    ff           invalid
+            0xffffffffffffffff    ff           invalid
+            0x00000000    b801000000   mov eax, 0x1
+------
+            0xfffffffffffffffd    ff           invalid
+            0xfffffffffffffffe    ff           invalid
+            0xffffffffffffffff    ff           invalid
+            0x00000000    b801000000   mov eax, 0x1
+------
+            0xfffffffffffffffe    ff           invalid
+            0xffffffffffffffff    ff           invalid
+            0x00000000    b801000000   mov eax, 0x1
+------
+            0xffffffffffffffff    0000         add [rax], al
+            0x00000001    0000         add [rax], al
+            0x00000003    ff           invalid
+------
+'
+
+NAME='pD 5 @ 0'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f
+pD 5
+'
+EXPECT='            0x00000000    b801000000   mov eax, 0x1
+------
+            0x00000001    0100         add [rax], eax
+            0x00000003    0000         add [rax], al
+            0x00000005    4839ca       cmp rdx, rcx
+------
+            0x00000002    0000         add [rax], al
+            0x00000004    004839       add [rax+0x39], cl
+------
+            0x00000003    0000         add [rax], al
+            0x00000005    4839ca       cmp rdx, rcx
+------
+            0x00000004    004839       add [rax+0x39], cl
+            0x00000007    ca7f00       retf 0x7f
+------
+'
+
+NAME='pd 5 @ 0'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f
+pd 5
+'
+EXPECT='                                    0x00000000    b801000000   mov eax, 0x1
+            0x00000005    4839ca       cmp rdx, rcx
+            0x00000008    7f00         jg 0xa
+            0x0000000a    0000         add [rax], al
+            0x0000000c    0000         add [rax], al
+'
+
