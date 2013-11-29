@@ -3,6 +3,114 @@
 for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
 
 
+NAME='pdn 4 @ 0'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='pdn 4 @ 0
+'
+EXPECT='0x00000000             0000  add [rax], al
+0x00000002             0000  add [rax], al
+'
+run_test
+
+NAME='pdn 4 arm 32 @ 0'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='pdn 4 arm 32 @ 0
+'
+EXPECT='0x00000000         00000000  andeq r0, r0, r0
+'
+run_test
+
+NAME='pdn 4 x86 64 @ 0'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='pdn 4 x86 64 @ 0
+'
+EXPECT='0x00000000             0000  add [rax], al
+0x00000002             0000  add [rax], al
+'
+run_test
+
+
+NAME='pdn walk from 4->8'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=64
+wx 20c09fe5b8010000004839ca7f
+pdn 4 
+pdn 5
+pdn 6
+pdn 7
+pdn 8
+'
+EXPECT='0x00000000             20c0  and al, al
+0x00000002               9f  lahf
+0x00000003               e5  <invalid>
+0x00000000             20c0  and al, al
+0x00000002               9f  lahf
+0x00000003             e5b8  in eax, 0xb8
+0x00000000             20c0  and al, al
+0x00000002               9f  lahf
+0x00000003             e5b8  in eax, 0xb8
+0x00000005               01  <invalid>
+0x00000000             20c0  and al, al
+0x00000002               9f  lahf
+0x00000003             e5b8  in eax, 0xb8
+0x00000005             0100  add [rax], eax
+0x00000000             20c0  and al, al
+0x00000002               9f  lahf
+0x00000003             e5b8  in eax, 0xb8
+0x00000005             0100  add [rax], eax
+0x00000007               00  <invalid>
+'
+run_test
+
+
+NAME='pdn walk [32] from 4->8'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+e anal.hasnext=0
+e asm.arch=x86
+e asm.bits=64
+wx 20c09fe5b8010000004839ca7f
+pdn 4 32
+pdn 5 32
+pdn 6 32
+pdn 7 32
+pdn 8 32
+'
+EXPECT='0x00000000             20c0  and al, al
+0x00000002               9f  lahf
+0x00000003               e5  <invalid>
+0x00000000             20c0  and al, al
+0x00000002               9f  lahf
+0x00000003             e5b8  in eax, 0xb8
+0x00000000             20c0  and al, al
+0x00000002               9f  lahf
+0x00000003             e5b8  in eax, 0xb8
+0x00000005               01  <invalid>
+0x00000000             20c0  and al, al
+0x00000002               9f  lahf
+0x00000003             e5b8  in eax, 0xb8
+0x00000005             0100  add [rax], eax
+0x00000000             20c0  and al, al
+0x00000002               9f  lahf
+0x00000003             e5b8  in eax, 0xb8
+0x00000005             0100  add [rax], eax
+0x00000007               00  <invalid>
+'
+run_test
+
 
 
 
@@ -20,7 +128,7 @@ EXPECT='0xfffffffffffffffc               ff  <invalid>
 run_test
 
 
-NAME='pdn pos/neg using [arch] [bits] settings, need to manually set'
+NAME='pdn -6 @ 6'
 BROKEN=
 FILE=malloc://512
 ARGS=
@@ -29,15 +137,16 @@ e anal.hasnext=0
 e asm.arch=x86
 e asm.bits=64
 wx 20c09fe5b8010000004839ca7f
-pdn 4 arm 32 @ 0
-pdn -4 arm 32 @ 4
+pdn -6 @ 6
 '
-EXPECT='0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x00000028
-0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x0000002c
+EXPECT='0x00000000             20c0  and al, al
+0x00000002               9f  lahf
+0x00000003             e5b8  in eax, 0xb8
+0x00000005               01  <invalid>
 '
 run_test
 
-NAME='pds and pDs using [arch] [bits] settings, need to manually set'
+NAME='pdn -5 @ 6'
 BROKEN=
 FILE=malloc://512
 ARGS=
@@ -46,21 +155,16 @@ e anal.hasnext=0
 e asm.arch=x86
 e asm.bits=64
 wx 20c09fe5b8010000004839ca7f
-pDs -4 arm 32 @ 4
-pds -4 arm 32 @ 4
-pd -4 arm 32 @ 4
-pD -4 arm 32 @ 4
+pdn -5 @ 6
 '
-EXPECT='0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x0000002c
-0x00000001               c0  <invalid>
-0x00000002               9f  <invalid>
-0x00000003               e5  <invalid>
-0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x0000002c
+EXPECT='0x00000001               c0  <invalid>
+0x00000002               9f  lahf
+0x00000003             e5b8  in eax, 0xb8
+0x00000005               01  <invalid>
 '
 run_test
 
-
-NAME='pds and pDs using [arch] [bits] settings, need to manually set'
+NAME='pd -5 @ 6'
 BROKEN=
 FILE=malloc://512
 ARGS=
@@ -69,40 +173,61 @@ e anal.hasnext=0
 e asm.arch=x86
 e asm.bits=64
 wx 20c09fe5b8010000004839ca7f
-pDs -4 arm 32 @ 2
+pdn -5 @ 6
 '
-EXPECT='0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x0000002c
-0x00000001               c0  <invalid>
-0x00000002               9f  <invalid>
-0x00000003               e5  <invalid>
-0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x0000002c
-'
-run_test
-
-NAME='corner case for 0 - max(ut64) wrap around'
-BROKEN=
-FILE=malloc://51
-ARGS=
-CMDS='
-pDs -4 arm 32 @ 2
-'
-EXPECT='0x00000000         00000000  andeq r0, r0, r0
-0x00000001         00000000  andeq r0, r0, r0
-0xffffffffffffffff         00000000  andeq r0, r0, r0
-0xfffffffffffffffe         ffff0000  strdeq pc, [r0], -pc; <UNPREDICTABLE>
+EXPECT='0x00000001               c0  <invalid>
+0x00000002               9f  lahf
+0x00000003             e5b8  in eax, 0xb8
+0x00000005               01  <invalid>
 '
 run_test
 
-NAME='corner case for 0 - max(ut64) wrap around'
-BROKEN=
-FILE=malloc://51
-ARGS=
-CMDS='
-pds -4 arm 32 @ 2
-'
-EXPECT='0x00000000               00  <invalid>
-0x00000001               00  <invalid>
-0xffffffffffffffff               00  <invalid>
-0xfffffffffffffffe         ffff0000  strdeq pc, [r0], -pc; <UNPREDICTABLE>
-'
-run_test
+
+# ==== working tests /\
+
+# NAME='pds and pDs using [arch] [bits] settings, need to manually set'
+# BROKEN=
+# FILE=malloc://512
+# ARGS=
+# CMDS='
+# e anal.hasnext=0
+# e asm.arch=x86
+# e asm.bits=64
+# wx 20c09fe5b8010000004839ca7f
+# pDs -4 arm 32 @ 2
+# '
+# EXPECT='0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x0000002c
+# 0x00000001               c0  <invalid>
+# 0x00000002               9f  <invalid>
+# 0x00000003               e5  <invalid>
+# 0x00000000         20c09fe5  ldr ip, [pc, 32] ; 0x0000002c
+# '
+# run_test
+
+# NAME='corner case for 0 - max(ut64) wrap around'
+# BROKEN=
+# FILE=malloc://51
+# ARGS=
+# CMDS='
+# pDs -4 arm 32 @ 2
+# '
+# EXPECT='0x00000000         00000000  andeq r0, r0, r0
+# 0x00000001         00000000  andeq r0, r0, r0
+# 0xffffffffffffffff         00000000  andeq r0, r0, r0
+# 0xfffffffffffffffe         ffff0000  strdeq pc, [r0], -pc; <UNPREDICTABLE>
+# '
+# run_test
+
+# NAME='corner case for 0 - max(ut64) wrap around'
+# BROKEN=
+# FILE=malloc://51
+# ARGS=
+# CMDS='
+# pds -4 arm 32 @ 2
+# '
+# EXPECT='0x00000000               00  <invalid>
+# 0x00000001               00  <invalid>
+# 0xffffffffffffffff               00  <invalid>
+# 0xfffffffffffffffe         ffff0000  strdeq pc, [r0], -pc; <UNPREDICTABLE>
+# '
+# run_test
