@@ -18,3 +18,21 @@ int 0x80
 '
 
 run_test
+
+NAME="eax vs rax"
+CMDS='
+e asm.arch=x86
+e asm.bits=32
+pa mov eax, 33
+pa mov rax, 33
+e asm.bits=64
+pa mov eax, 33
+pa mov rax, 33
+'
+EXPECT='b821000000
+b821000000
+b821000000
+48c7c021000000
+'
+
+run_test
