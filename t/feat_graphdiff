@@ -8,8 +8,7 @@ NAME='graphdiff segfault'
 FILE=-
 BROKEN=
 ARGS=
-CMDS='cg /
+CMDS='cg / 2>/dev/null
 '
-EXPECT='fcn.00000000  0x0 |     NEW  (0.000000)
-'
+EXPECT=""
 run_test

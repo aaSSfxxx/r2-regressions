@@ -35,7 +35,7 @@ Whitespace expected after '?f'
 Virtual addresses not enabled!
 0.004711
 "
-EXPECT='0x0
+EXPECT='0
 0x0
 0
 
