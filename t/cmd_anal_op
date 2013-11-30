@@ -15,9 +15,9 @@ ao 1~?
 p8 1
 ao 1~?
 '
-EXPECT='9
+EXPECT='10
 90
-9
+10
 '
 run_test
 
