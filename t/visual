@@ -26,3 +26,15 @@ EXPECT='0x3
 '
 
 run_test
+
+BROKEN=
+NAME="visual hex pP scroll"
+CMDS='
+e scr.interactive=true
+wx 4889e54889e5
+VpPjq
+s
+'
+EXPECT='0x10
+'
+run_test
