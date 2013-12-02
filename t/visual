@@ -1,9 +1,10 @@
 #!/bin/sh
 for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
 
-BROKEN=1
+BROKEN=
 NAME="visual hex scroll"
 CMDS='
+e scr.interactive=true
 wx 4889e54889e5
 Vjq
 s
@@ -14,13 +15,14 @@ EXPECT='0x10
 run_test
 
 NAME="visual op scroll"
-BROKEN=1
+BROKEN=
 CMDS='
+e scr.interactive=true
 wx 4889e54889e5
 Vpjq
 s
 '
-EXPECT='0x4
+EXPECT='0x3
 '
 
 run_test
