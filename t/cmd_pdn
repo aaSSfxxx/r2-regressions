@@ -7,7 +7,10 @@ NAME='pdn 4 @ 0'
 BROKEN=
 FILE=malloc://512
 ARGS=
-CMDS='pdn 4 @ 0
+CMDS='
+e asm.arch=x86
+e asm.bits=64
+pdn 4 @ 0
 '
 EXPECT='0x00000000             0000  add [rax], al
 0x00000002             0000  add [rax], al
@@ -18,7 +21,10 @@ NAME='pdn 4 arm 32 @ 0'
 BROKEN=
 FILE=malloc://512
 ARGS=
-CMDS='pdn 4 arm 32 @ 0
+CMDS='
+e asm.arch=x86
+e asm.bits=64
+pdn 4 arm 32 @ 0
 '
 EXPECT='0x00000000         00000000  andeq r0, r0, r0
 '
@@ -28,7 +34,10 @@ NAME='pdn 4 x86 64 @ 0'
 BROKEN=
 FILE=malloc://512
 ARGS=
-CMDS='pdn 4 x86 64 @ 0
+CMDS='
+e asm.arch=x86
+e asm.bits=64
+pdn 4 x86 64 @ 0
 '
 EXPECT='0x00000000             0000  add [rax], al
 0x00000002             0000  add [rax], al
@@ -118,7 +127,10 @@ NAME='pdn -4 @ 0'
 BROKEN=
 FILE=malloc://512
 ARGS=
-CMDS='pdn -4 @ 0
+CMDS='
+e asm.arch=x86
+e asm.bits=64
+pdn -4 @ 0
 '
 EXPECT='0xfffffffffffffffc               ff  <invalid>
 0xfffffffffffffffd               ff  <invalid>
