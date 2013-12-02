@@ -1,0 +1,13 @@
+#!/bin/sh
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+NAME="stdin eof"
+BROKEN=1
+SHELLCMD='echo | rarun2 timeout=1 program="/usr/bin/r2" arg1=-nq arg2=-'
+EXIT_CODE=0
+run_test
+
+NAME="stdin quit"
+SHELLCMD='echo q | rarun2 timeout=1 program="/usr/bin/r2" arg1=-nq arg2=-'
+EXIT_CODE=0
+run_test

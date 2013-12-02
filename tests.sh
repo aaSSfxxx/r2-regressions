@@ -78,7 +78,7 @@ run_test() {
         test_reset
         return
     fi
-    if [ -z "${CMDS}" ]; then
+    if [ -z "${SHELLCMD}" -a -z "${CMDS}" ]; then
         test_failed "CMDS missing!"
         test_reset
         return
@@ -98,17 +98,21 @@ run_test() {
     TMP_VAL=`mktemp "${PD}/${TEST_NAME}-val.XXXXXX"`
     TMP_EXP=`mktemp "${PD}/${TEST_NAME}-exp.XXXXXX"`
 
-    # No colors and no user configs.
-    R2ARGS="${R2} -e scr.color=0 -N -q -i ${TMP_RAD} ${ARGS} ${FILE} > ${TMP_OUT} 2> ${TMP_ERR}"
-    R2CMD=
-    # Valgrind to detect memory corruption.
-    if [ -n "${VALGRIND}" ]; then
-        R2CMD="valgrind --error-exitcode=47 --log-file=${TMP_VAL}"
+    if [ -n "${SHELLCMD}" ]; then
+        R2CMD="$SHELLCMD"
+    else
+        # No colors and no user configs.
+        R2ARGS="${R2} -e scr.color=0 -N -q -i ${TMP_RAD} ${ARGS} ${FILE} > ${TMP_OUT} 2> ${TMP_ERR}"
+        R2CMD=
+        # Valgrind to detect memory corruption.
+        if [ -n "${VALGRIND}" ]; then
+            R2CMD="valgrind --error-exitcode=47 --log-file=${TMP_VAL}"
+        fi
+        R2CMD="${R2CMD} ${R2ARGS}"
+        #if [ -n "${VERBOSE}" ]; then
+            #echo #$R2CMD
+        #fi
     fi
-    R2CMD="${R2CMD} ${R2ARGS}"
-    #if [ -n "${VERBOSE}" ]; then
-        #echo #$R2CMD
-    #fi
 
     # Put expected outcome and program to run in files and run the test.
     printf "%s\n" "${CMDS}" > ${TMP_RAD}
@@ -217,6 +221,7 @@ test_reset() {
     FILTER=
     EXITCODE=
     BROKEN=
+    SHELLCMD=
 }
 
 test_reset
