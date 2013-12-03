@@ -5,6 +5,8 @@ BROKEN=
 NAME="visual hex scroll"
 CMDS='
 e scr.interactive=true
+e asm.arch=x86
+e asm.bits=64
 wx 4889e54889e5
 Vjq
 s
@@ -17,6 +19,8 @@ run_test
 NAME="visual op scroll"
 BROKEN=
 CMDS='
+e asm.arch=x86
+e asm.bits=64
 e scr.interactive=true
 wx 4889e54889e5
 Vpjq
@@ -30,6 +34,8 @@ run_test
 BROKEN=
 NAME="visual hex pP scroll"
 CMDS='
+e asm.arch=x86
+e asm.bits=64
 e scr.interactive=true
 wx 4889e54889e5
 VpPjq
