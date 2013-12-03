@@ -4,15 +4,15 @@ for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
 
 RET=0
 
-NAME='dupfd'
+NAME='dupfd bug'
 FILE=-
 BROKEN=
 ARGS=
 CMDS='
 10o -
-o|sort -u |wc -l
+o|sort -u |wc -l|sed -e s,\ ,,g
 '
-EXPECT='      11
+EXPECT='11
 '
 run_test
 [ $? != 0 ] && RET=$?
@@ -23,9 +23,9 @@ BROKEN=
 ARGS=
 CMDS='
 1000o -
-o|sort -u |wc -l
+o|sort -u |wc -l|sed -e s,\ ,,g
 '
-EXPECT='    1001
+EXPECT='1001
 '
 run_test
 

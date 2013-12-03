@@ -39,6 +39,10 @@ run_test() {
     # TODO: remove which dependency
     [ -z "${R2}" ] && R2=$(which radare2)
     PD="/tmp/r2-regressions/" # XXX
+    if [ -z "${R2}" ]; then
+      echo "ERROR: Cannot find radare2 program in PATH"
+      exit 1
+    fi
 
     if [ -n "${GREP}" ]; then
         if [ -z "`echo \"${NAME}\" | grep \"${GREP}\"`" ]; then
