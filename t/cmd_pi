@@ -1,0 +1,55 @@
+#!/bin/sh
+# GPL 3+ - Copyright (C) 2012  pancake, Edd Barrett, Simon Ruderich
+for a in . .. ../.. ; do [ -e $a/tests.sh ] && . $a/tests.sh ; done
+
+NAME='pi 3'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f
+pi 3
+'
+EXPECT='mov eax, 0x1
+cmp rdx, rcx
+jg 0xa
+'
+run_test
+
+NAME='pi 6'
+BROKEN=
+FILE=malloc://512
+ARGS=
+CMDS='
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f00b8010000004839ca7f00
+pi 6
+'
+EXPECT='mov eax, 0x1
+cmp rdx, rcx
+jg 0xa
+mov eax, 0x1
+cmp rdx, rcx
+jg 0x14
+'
+run_test
+
+NAME='pi -3 @ 3'
+BROKEN=1
+FILE=malloc://512
+ARGS=
+CMDS='
+e asm.arch=x86
+e asm.bits=64
+wx b8010000004839ca7f00
+b8010000004839ca7f00
+pi -3 @ 10
+'
+EXPECT='mov eax, 0x1
+cmp rdx, rcx
+jg 0xa
+'
+run_test

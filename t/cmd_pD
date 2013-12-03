@@ -9,7 +9,7 @@ ARGS=
 CMDS='e anal.hasnext=0
 e asm.arch=x86
 e asm.bits=64
-wx b8010000004839ca7f
+wx b8010000004839ca7f00
 pD -10 @ 0xa
 '
 EXPECT='            0x00000000    b801000000   mov eax, 0x1 ; 0x00000001 
@@ -25,7 +25,7 @@ ARGS=
 CMDS='e anal.hasnext=0
 e asm.arch=x86
 e asm.bits=64
-wx b8010000004839ca7f
+wx b8010000004839ca7f00
 pD -10
 '
 EXPECT='            0xfffffffffffffff6    ff           invalid
@@ -37,7 +37,7 @@ EXPECT='            0xfffffffffffffff6    ff           invalid
             0xfffffffffffffffc    ff           invalid
             0xfffffffffffffffd    ff           invalid
             0xfffffffffffffffe    ff           invalid
-            0xffffffffffffffff    0000         add [rax], al
+            0xffffffffffffffff    ff           invalid
 '
 run_test
 
@@ -48,7 +48,7 @@ ARGS=
 CMDS='e anal.hasnext=0
 e asm.arch=x86
 e asm.bits=64
-wx b8010000004839ca7f
+wx b8010000004839ca7f00
 pD 5
 '
 EXPECT='            0x00000000    b801000000   mov eax, 0x1 ; 0x00000001 
@@ -67,8 +67,8 @@ pd 5
 '
 EXPECT='            0x00000000    b801000000   mov eax, 0x1 ; 0x00000001 
             0x00000005    4839ca       cmp rdx, rcx
-            0x00000008    7f00         jg 0xa
-            0x0000000a    0000         add [rax], al
+        ,=< 0x00000008    7f00         jg 0xa
+        `-> 0x0000000a    0000         add [rax], al
             0x0000000c    0000         add [rax], al
 '
 run_test
@@ -125,7 +125,9 @@ e asm.bits=64
 wx 20c09fe5b8010000004839ca7f
 pd -2 @ 5
 '
-EXPECT='            0x00000002    9f           lahf
+EXPECT='
+            0x00000000    20c0         and al, al
+            0x00000002    9f           lahf
             0x00000003    e5b8         in eax, 0xb8
 '
 run_test
