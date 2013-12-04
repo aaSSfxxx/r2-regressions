@@ -36,3 +36,20 @@ b821000000
 '
 
 run_test
+
+NAME="[rbp+4]"
+CMDS='
+e asm.arch=x86
+e asm.bits=64
+pa mov [rbp+4],0
+pa mov [ebp+4],0
+e asm.bits=32
+#pa mov [rbp+4],0
+pa mov [ebp+4],0
+'
+EXPECT='c7850400000000000000
+67c7850400000000000000
+c7850400000000000000
+'
+
+run_test
